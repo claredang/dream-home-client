@@ -4,6 +4,7 @@ import Footer from "../../components/footer/Footer.js";
 import TopButton from "../../components/topButton/TopButton.js";
 import "./QuizTest.css";
 import questionsData from "./QuizTestQuestion";
+import quizStyleType from "./QuizStyleType.js";
 import axios from "axios";
 // import "dotenv/config";
 
@@ -56,8 +57,8 @@ class QuizTest extends Component {
       () => {
         // If it's the last question, send answers to the server
         if (this.state.currentQuestion === totalQuestions) {
-          // this.quizResult();
-          this.sendAnswersToServer();
+          this.quizResult();
+          // this.sendAnswersToServer();
         }
       }
     );
@@ -200,6 +201,7 @@ class QuizTest extends Component {
                         result.mostFrequentElements.map((element, index) => (
                           <div>
                             <div key={index}>{element}</div>
+                            <p>{quizStyleType[element]}</p>
                             <img
                               src={require(`../../assests/quiz-image/${element}/${element}_1.jpg`)}
                               width="80%"
