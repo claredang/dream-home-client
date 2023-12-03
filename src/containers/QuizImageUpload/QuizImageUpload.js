@@ -14,52 +14,20 @@ class QuizImageUpload extends Component {
     };
   }
 
-  componentDidMount() {
-    // axios.get("http://localhost:9874/api/data").then((data) => {
-    //   console.log(data);
-    //   // this.setState({ data: data.name });
-    // });
-  }
+  componentDidMount() {}
 
   handleSubmit = async (event) => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("file", this.state.file, {
-      // filepath: filePath,
-      contentType: "image/jpg",
-    });
+    formData.append("file", this.state.file);
     console.log(this.state.file, this.state.file.name);
 
-    try {
-      axios
-        .post(
-          "http://localhost:9874/api/upload",
-          { formData },
-          {
-            headers: {
-              "content-type": "multipart/form-data", // do not forget this
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res.data);
-          // this.setState({ val: res.data.message });
-        });
-      // axios
-      //   .post("http://localhost:9874/api/test", {
-      //     key1: "value1",
-      //     key2: "value2",
-      //   })
-      //   .then((response) => {
-      //     console.log("Response:", response.data, response.data.data);
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error:", error);
-      //   });
-    } catch (error) {
-      console.error(error);
-    }
+    axios.post("/api/upload", formData).then((res) => {
+      console.log(res.data.message);
+      this.setState({ val: res.data.message });
+    });
+    alert("File uploaded successfully");
   };
 
   handleFileUpload = (event) => {
