@@ -19,6 +19,7 @@
     "bootstrap": "^4.6.2",
     "chart.js": "^2.9.3",
     "csv-parse": "^5.3.3",
+    "dotenv": "^16.3.1",
     "fs": "0.0.1-security",
     "gh-pages": "^2.1.1",
     "graphql": "^14.5.8",
@@ -54,7 +55,8 @@
     "@iconify/react": "^1.1.1",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
-    "prettier": "2.0.5"
+    "prettier": "2.0.5",
+    "tailwindcss": "^3.3.5"
   },
   "browserslist": {
     "production": [

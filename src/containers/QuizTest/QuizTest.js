@@ -4,6 +4,8 @@ import Footer from "../../components/footer/Footer.js";
 import TopButton from "../../components/topButton/TopButton.js";
 import "./QuizTest.css";
 import questionsData from "./QuizTestQuestion";
+import axios from "axios";
+// import "dotenv/config";
 
 class QuizTest extends Component {
   constructor(props) {
@@ -36,6 +38,7 @@ class QuizTest extends Component {
   handleNextQuestion = () => {
     const { currentQuestion, selectedAnswer, answers } = this.state;
     const currentQuestionData = questionsData[currentQuestion];
+    const totalQuestions = Object.keys(questionsData).length;
 
     const updatedAnswers = {
       ...answers,
@@ -52,9 +55,9 @@ class QuizTest extends Component {
       },
       () => {
         // If it's the last question, send answers to the server
-        if (this.state.currentQuestion === questionsData.length) {
-          this.quizResult();
-          // this.sendAnswersToServer();
+        if (this.state.currentQuestion === totalQuestions) {
+          // this.quizResult();
+          this.sendAnswersToServer();
         }
       }
     );
@@ -68,6 +71,7 @@ class QuizTest extends Component {
   };
 
   quizResult = () => {
+    console.log("inside here");
     const { answers } = this.state;
     const elementCounts = {};
 
@@ -100,26 +104,31 @@ class QuizTest extends Component {
   sendAnswersToServer = () => {
     const { answers } = this.state;
     console.log("answer: ", answers);
+
+    console.log("api: ", process.env.API_BASE_URL);
     // Send the answers to the backend API
     // You can use a library like axios for making HTTP requests
     // Example using fetch:
-    fetch("http://localhost:9874/api/quiz", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ answers: this.state.answers }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("API response:", data);
-        // Handle the API response as needed
-        this.setState({ result: data });
-        console.log(this.state.result);
-      })
-      .catch((error) => {
-        console.error("Error sending answers to the server:", error);
-      });
+    // const response = axios.get(`${process.env.API_BASE_URL}/api/data`);
+    const response = fetch(`http://localhost:8080/api/test`);
+    console.log("RESPONSE: ", response);
+    // fetch(`${process.env.API_BASE_URL}/api/quiz`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ answers: this.state.answers }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("API response:", data);
+    //     // Handle the API response as needed
+    //     this.setState({ result: data });
+    //     console.log(this.state.result);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error sending answers to the server:", error);
+    //   });
   };
 
   render() {
@@ -130,8 +139,13 @@ class QuizTest extends Component {
       result,
       quizCompleted,
     } = this.state;
-    const totalQuestions = questionsData.length;
+    const totalQuestions = Object.keys(questionsData).length;
     const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+    console.log(
+      "current question, total question: ",
+      currentQuestion,
+      totalQuestions
+    );
 
     return (
       <div>
@@ -144,8 +158,8 @@ class QuizTest extends Component {
             {/* Display progress bar */}
             <progress value={progress} max={100} />
 
-            {/* {currentQuestion < totalQuestions && !quizCompleted ? ( */}
-            {true ? (
+            {currentQuestion < totalQuestions && !quizCompleted ? (
+              // {true ? (
               <>
                 <p>{questionsData[currentQuestion].question}</p>
                 <div className="quiz-layout">

@@ -44,63 +44,6 @@ class Quiz extends Component {
     }
 
     return (
-      // <div className="contact-main">
-      //   <Header theme={theme} />
-      //   <div className="basic-contact">
-      //     <Fade bottom duration={1000} distance="40px">
-      //       <div className="contact-heading-div">
-      //         <div className="contact-heading-img-div">
-      //           {/* <img
-      //             alt="Quiz Image"
-      //             src={require(`../../assests/images/${quizData["quiz_image_path"]}`)}
-      //             width="100%"
-      //           /> */}
-      //           <PhotoAlbum
-      //             layout="rows"
-      //             photos={slides}
-      //             targetRowHeight={150}
-      //             spacing={1}
-      //             onClick={({ index: curresnt }) =>
-      //               this.setState({ index: current })
-      //             }
-      //           />
-      //         </div>
-      //         <div className="contact-heading-text-div">
-      //           <h1
-      //             className="contact-heading-text"
-      //             style={{ color: theme.text }}
-      //           >
-      //             {quizData["title"]}
-      //           </h1>
-      //           <p
-      //             className="contact-text-p subTitle"
-      //             style={{
-      //               color: theme.secondaryText,
-      //               fontSize: theme.fontSize,
-      //             }}
-      //           >
-      //             {quizData["description"]}
-      //           </p>
-      //           <p
-      //             className="contact-header-detail-text subTitle"
-      //             style={{ color: theme.secondaryText }}
-      //           ></p>
-      //           <button onClick={this.handleQuizButtonClick}>
-      //             Do Quiz Test!
-      //           </button>
-      //           <button onClick={this.handleUploadImageClick}>
-      //             Upload Images
-      //           </button>
-      //         </div>
-      //       </div>
-      //     </Fade>
-      //     {/* <div>{showQuizTest && <QuizTest />}</div> */}
-      //     {showImageUpload && <QuizImageUpload />}
-      //   </div>
-      //   <Footer theme={this.props.theme} onToggle={this.props.onToggle} />
-      //   <TopButton theme={this.props.theme} />
-      // </div>
-
       <div className="contact-main">
         <Header theme={theme} />
         <div className="reading-container">
@@ -114,7 +57,7 @@ class Quiz extends Component {
                     photos={slides}
                     targetRowHeight={150}
                     spacing={1}
-                    onClick={({ index: curresnt }) =>
+                    onClick={({ index: current }) =>
                       this.setState({ index: current })
                     }
                   />
