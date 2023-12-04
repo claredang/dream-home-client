@@ -7,7 +7,7 @@ import questionsData from "./QuizTestQuestion";
 import quizStyleType from "./QuizStyleType.js";
 import axios from "axios";
 // import "dotenv/config";
-import replaceDashesWithUnderscores from "../../shared/utils.js";
+import { replaceDashesWithUnderscores, shuffleArray } from "../../shared/utils";
 
 class QuizTest extends Component {
   constructor(props) {
@@ -22,13 +22,20 @@ class QuizTest extends Component {
   }
 
   resetQuiz = () => {
-    this.setState({
+    const shuffledQuestions = shuffleArray(questionsData);
+    const shuffledOptions = shuffledQuestions.map((question) => ({
+      ...question,
+      options: shuffleArray(question.options),
+    }));
+
+    this.setState((prevState) => ({
       currentQuestion: 0,
       selectedAnswer: "",
       answers: {},
       result: {},
-      quizCompleted: false, // Reset the quiz completion flag
-    });
+      quizCompleted: false,
+      shuffledQuestions: shuffledOptions,
+    }));
   };
 
   handleAnswerSelection = (answer) => {
@@ -46,8 +53,6 @@ class QuizTest extends Component {
       ...answers,
       [currentQuestionData.id]: selectedAnswer,
     };
-
-    console.log("updated answer: ", updatedAnswers);
 
     this.setState(
       {
@@ -73,7 +78,6 @@ class QuizTest extends Component {
   };
 
   quizResult = () => {
-    console.log("inside here");
     const { answers } = this.state;
     const elementCounts = {};
 
@@ -105,9 +109,9 @@ class QuizTest extends Component {
 
   sendAnswersToServer = () => {
     const { answers } = this.state;
-    console.log("answer: ", answers);
+    // console.log("answer: ", answers);
 
-    console.log("api: ", process.env.API_BASE_URL);
+    // console.log("api: ", process.env.API_BASE_URL);
     // Send the answers to the backend API
     // You can use a library like axios for making HTTP requests
     // Example using fetch:
@@ -143,11 +147,11 @@ class QuizTest extends Component {
     } = this.state;
     const totalQuestions = Object.keys(questionsData).length;
     const progress = ((currentQuestion + 1) / totalQuestions) * 100;
-    console.log(
-      "current question, total question: ",
-      currentQuestion,
-      totalQuestions
-    );
+    // console.log(
+    //   "current question, total question: ",
+    //   currentQuestion,
+    //   totalQuestions
+    // );
 
     return (
       <div>
