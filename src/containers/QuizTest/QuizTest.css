@@ -25,3 +25,33 @@
   width: 100%; /* You can adjust this value based on your design preferences */
   margin: 10px;
 }
+
+.quiz-results-container {
+  display: flex;
+  @apply bg-black;
+}
+
+.column {
+  flex: 1;
+  padding: 10px;
+}
+
+.column ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.column li {
+  margin-bottom: 10px;
+}
+
+.column p {
+  margin-bottom: 10px;
+}
+
+.column img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+}

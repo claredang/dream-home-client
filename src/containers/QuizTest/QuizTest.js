@@ -104,6 +104,7 @@ class QuizTest extends Component {
       result: {
         mostFrequentElements,
       },
+      quizCompleted: true,
     });
   };
 
@@ -152,38 +153,44 @@ class QuizTest extends Component {
       <div>
         <Header theme={theme} />
         <div className="quiz-test-main">
-          <h1>Quiz Test</h1>
           <div className="progress-container">
-            <progress value={progress} max={100} />
-            {currentQuestion < totalQuestions && !quizCompleted ? (
+            {!quizCompleted ? (
               <>
-                <p>{questionsData[currentQuestion].question}</p>
-                <div className="quiz-layout">
-                  {questionsData[currentQuestion].options.map(
-                    (option, index) => (
-                      <div
-                        key={index}
-                        onClick={() => this.handleAnswerSelection(option.type)}
-                        className={
-                          selectedAnswer === option.text ? "selected" : ""
-                        }
-                      >
-                        <label>
-                          <div className="quiz-item">
-                            <img
-                              src={require(`../../assests/quiz-image/${option.type}/${option.image}`)}
-                              width={50}
-                              height={50}
-                              alt={`Option ${index + 1}`}
-                            />
-                            <span>{option.text}</span>
+                <h1>Quiz Test</h1>
+                <progress value={progress} max={100} />
+                {currentQuestion < totalQuestions && (
+                  <>
+                    <p>{questionsData[currentQuestion].question}</p>
+                    <div className="quiz-layout">
+                      {questionsData[currentQuestion].options.map(
+                        (option, index) => (
+                          <div
+                            key={index}
+                            onClick={() =>
+                              this.handleAnswerSelection(option.type)
+                            }
+                            className={
+                              selectedAnswer === option.text ? "selected" : ""
+                            }
+                          >
+                            <label>
+                              <div className="quiz-item">
+                                <img
+                                  src={require(`../../assests/quiz-image/${option.type}/${option.image}`)}
+                                  width={50}
+                                  height={50}
+                                  alt={`Option ${index + 1}`}
+                                />
+                                <span>{option.text}</span>
+                              </div>
+                            </label>
                           </div>
-                        </label>
-                      </div>
-                    )
-                  )}
-                </div>
-                <button onClick={this.handleBackButton}>Back</button>
+                        )
+                      )}
+                    </div>
+                    <button onClick={this.handleBackButton}>Back</button>
+                  </>
+                )}
               </>
             ) : (
               <div>
@@ -191,27 +198,37 @@ class QuizTest extends Component {
                 {Object.keys(result).length > 0 && (
                   <div>
                     <h3>Quiz Results:</h3>
-                    <ul>
-                      {result.mostFrequentElements &&
-                        result.mostFrequentElements.map((element, index) => (
-                          <div>
-                            <div key={index}>{element}</div>
-                            <p>
-                              {
-                                quizStyleType[
-                                  replaceDashesWithUnderscores(element)
-                                ]
-                              }
-                            </p>
-                            <img
-                              src={require(`../../assests/quiz-image/${element}/${element}_1.jpg`)}
-                              // width="80%"
-                              // height="80%"
-                              alt={`Option ${index + 1}`}
-                            />
-                          </div>
-                        ))}
-                    </ul>
+                    <div className="quiz-results-container">
+                      <div
+                        className="column"
+                        style={{ backgroundColor: "aquamarine" }}
+                      >
+                        <ul>
+                          {result.mostFrequentElements &&
+                            result.mostFrequentElements.map(
+                              (element, index) => <li key={index}>{element}</li>
+                            )}
+                        </ul>
+                      </div>
+                      <div className="column">
+                        {result.mostFrequentElements &&
+                          result.mostFrequentElements.map((element, index) => (
+                            <div key={index}>
+                              <p>
+                                {
+                                  quizStyleType[
+                                    replaceDashesWithUnderscores(element)
+                                  ]
+                                }
+                              </p>
+                              <img
+                                src={require(`../../assests/quiz-image/${element}/${element}_1.jpg`)}
+                                alt={`Option ${index + 1}`}
+                              />
+                            </div>
+                          ))}
+                      </div>
+                    </div>
                   </div>
                 )}
                 <button onClick={() => this.resetQuiz()}>Do Quiz Again</button>
