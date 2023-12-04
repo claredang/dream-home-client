@@ -1,4 +1,6 @@
 const styleDescriptions = {
+  farm_house:
+    "The utilitarian beauty of raw materials and industrial aesthetics",
   glam:
     "You love the glitz and glamour. Your space is filled with luxurious fabrics, metallic accents, and bold statements.",
   industrial:

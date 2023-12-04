@@ -1,35 +1,35 @@
 {
   "0": {
     "id": 1,
-    "question": "What color palette do you envision for your living room?",
+    "question": "What color palette do you envision for your living room??",
     "options": [
       {
-        "text": "Coastal",
+        "text": "Soft blues, greens, and sandy neutrals",
         "image": "coastal_1.jpg",
         "type": "coastal"
       },
       {
-        "text": "Scandinavian",
+        "text": "Light neutrals with pops of pastels",
         "image": "scandinavian_1.jpg",
         "type": "scandinavian"
       },
       {
-        "text": "Farm House",
+        "text": "Warm whites, earthy tones, and rustic finishes",
         "image": "farm-house_1.jpg",
         "type": "farm-house"
       },
       {
-        "text": "Midcentury Modern",
+        "text": "Bold and vibrant colors with a mix of neutral",
         "image": "midcentury-modern_1.jpg",
         "type": "midcentury-modern"
       },
       {
-        "text": "Glam",
+        "text": "Luxurious metallics, whites, and blacks",
         "image": "glam_1.jpg",
         "type": "glam"
       },
       {
-        "text": "Industrial",
+        "text": "Industrial grays, blacks, and metallic accents",
         "image": "industrial_1.jpg",
         "type": "industrial"
       }
@@ -40,32 +40,32 @@
     "question": "Are you interested in a specific theme or mood, such as a cozy retreat, a modern sanctuary, or a vintage-inspired haven?",
     "options": [
       {
-        "text": "Coastal",
+        "text": "Coastal retreat",
         "image": "coastal_2.jpg",
         "type": "coastal"
       },
       {
-        "text": "Scandinavian ",
+        "text": "Modern sanctuary",
         "image": "scandinavian_2.jpg",
         "type": "scandinavian"
       },
       {
-        "text": "Farm House",
+        "text": "Vintage-inspired haven",
         "image": "farm-house_2.jpg",
         "type": "farm-house"
       },
       {
-        "text": "Midcentury Modern",
+        "text": "A mix of styles for an eclectic feel",
         "image": "midcentury-modern_2.jpg",
         "type": "midcentury-modern"
       },
       {
-        "text": "Glam",
+        "text": "Luxurious and glamorous ambiance",
         "image": "glam_2.jpg",
         "type": "glam"
       },
       {
-        "text": "Industrial",
+        "text": "Luxurious and glamorous ambiance",
         "image": "industrial_2.jpg",
         "type": "industrial"
       }
@@ -76,32 +76,32 @@
     "question": "Are you interested in a specific color scheme for your kitchen?",
     "options": [
       {
-        "text": "Coastal",
+        "text": "Sea-inspired blues and whites",
         "image": "coastal_3.jpg",
         "type": "coastal"
       },
       {
-        "text": "Scandinavian ",
+        "text": "Light and airy with whites and pastels",
         "image": "scandinavian_3.jpg",
         "type": "scandinavian"
       },
       {
-        "text": "Farm House",
+        "text": "Warm and cozy with wood tones and neutral colors",
         "image": "farm-house_3.jpg",
         "type": "farm-house"
       },
       {
-        "text": "Midcentury Modern",
+        "text": "Playful with bold pops of color",
         "image": "midcentury-modern_3.jpg",
         "type": "midcentury-modern"
       },
       {
-        "text": "Glam",
+        "text": "Elegant blacks, whites, and metallics",
         "image": "glam_3.jpg",
         "type": "glam"
       },
       {
-        "text": "Industrial",
+        "text": "Industrial grays and raw materials",
         "image": "industrial_3.jpg",
         "type": "industrial"
       }
@@ -109,35 +109,35 @@
   },
   "3": {
     "id": 4,
-    "question": "Are you interested in a specific color scheme for your kitchen?",
+    "question": "What ambiance do you want to create in your home?",
     "options": [
       {
-        "text": "Coastal",
+        "text": "Serene and beachy",
         "image": "coastal_4.jpg",
         "type": "coastal"
       },
       {
-        "text": "Scandinavian ",
+        "text": "Clean and minimalist",
         "image": "scandinavian_4.jpg",
         "type": "scandinavian"
       },
       {
-        "text": "Farm House",
+        "text": "Cozy and rustic",
         "image": "farm-house_4.jpg",
         "type": "farm-house"
       },
       {
-        "text": "Midcentury Modern",
+        "text": "Chic and glamorous",
         "image": "midcentury-modern_4.jpg",
         "type": "midcentury-modern"
       },
       {
-        "text": "Glam",
+        "text": "Modern and sophisticated",
         "image": "glam_4.jpg",
         "type": "glam"
       },
       {
-        "text": "Industrial",
+        "text": "Industrial and utilitarian",
         "image": "industrial_4.jpg",
         "type": "industrial"
       }
@@ -145,72 +145,71 @@
   },
   "4": {
     "id": 5,
-    "question": "Are you interested in a specific color scheme for your kitchen?",
+    "question": "What role does natural light play in your preferences for each room?",
     "options": [
       {
-        "text": "Coastal",
+        "text": "Essential for a bright and airy feel",
         "image": "coastal_5.jpg",
         "type": "coastal"
       },
       {
-        "text": "Scandinavian ",
+        "text": "Important for creating a fresh and natural look",
         "image": "scandinavian_5.jpg",
         "type": "scandinavian"
       },
       {
-        "text": "Farm House",
+        "text": "Welcoming, with a balance of natural and ambient light",
         "image": "farm-house_5.jpg",
         "type": "farm-house"
       },
       {
-        "text": "Midcentury Modern",
+        "text": "Embracing natural light, but also open to dramatic lighting",
         "image": "midcentury-modern_5.jpg",
         "type": "midcentury-modern"
       },
       {
-        "text": "Glam",
+        "text": "Utilizing natural light for a luxurious and elegant atmosphere",
         "image": "glam_5.jpg",
         "type": "glam"
       },
       {
-        "text": "Industrial",
+        "text": "Incorporating natural light with an industrial edge",
         "image": "industrial_5.jpg",
         "type": "industrial"
       }
-    ],
-    "correctAnswer": "Coastal"
+    ]
   },
   "5": {
     "id": 6,
-    "question": "Are you interested in a specific color scheme for your kitchen?",
+    "question": "How important is the inclusion of plants and greenery in your interior design?",
     "options": [
       {
-        "text": "Coastal",
+        "text": "Essential for creating a natural and coastal atmosphere",
         "image": "coastal_6.jpg",
         "type": "coastal"
       },
       {
-        "text": "Scandinavian ",
+        "text": "Important to bring a touch of nature indoors",
         "image": "scandinavian_6.jpg",
         "type": "scandinavian"
       },
       {
-        "text": "Farm House",
+        "text": "A must-have for a cozy house look",
         "image": "farm-house_6.jpg",
         "type": "farm-house"
       },
       {
-        "text": "Midcentury Modern",
+        "text": "Nice to have, but not a top priority",
         "image": "midcentury-modern_6.jpg",
         "type": "midcentury-modern"
       },
       {
-        "text": "Glam",
+        "text": "Minimal, but perhaps some elegant floral arrangements",
         "image": "glam_6.jpg",
         "type": "glam"
       },
       {
-        "text": "Industrial",
+        "text": "Not a priority; prefer an electic aesthetic",
         "image": "industrial_6.jpg",
         "type": "industrial"
       }
@@ -218,39 +217,38 @@
   },
   "6": {
     "id": 7,
-    "question": "Are you interested in a specific color scheme for your kitchen?",
+    "question": "What are you most inspired by in your design",
     "options": [
       {
-        "text": "Coastal",
+        "text": "Nature's serenity and the calming influence of the outdoors",
         "image": "coastal_7.jpg",
         "type": "coastal"
       },
       {
-        "text": "Scandinavian ",
+        "text": "Simplicity, functionality, and the beauty of clean lines",
         "image": "scandinavian_7.jpg",
         "type": "scandinavian"
       },
       {
-        "text": "Farm House",
+        "text": "The rustic charm, warmth, and authenticity of natural materials",
         "image": "farm-house_7.jpg",
         "type": "farm-house"
       },
       {
-        "text": "Midcentury Modern",
+        "text": "Opulence, sophistication, and a touch of glamour",
         "image": "midcentury-modern_7.jpg",
         "type": "midcentury-modern"
       },
       {
-        "text": "Glam",
+        "text": "Timeless design principles with iconic shapes and classic elements",
         "image": "glam_7.jpg",
         "type": "glam"
       },
       {
-        "text": "Industrial",
+        "text": "The utilitarian beauty of raw materials and industrial aesthetics",
         "image": "industrial_7.jpg",
         "type": "industrial"
       }
-    ],
-    "correctAnswer": "Coastal"
+    ]
   }
 }

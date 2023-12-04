@@ -7,6 +7,7 @@ import questionsData from "./QuizTestQuestion";
 import quizStyleType from "./QuizStyleType.js";
 import axios from "axios";
 // import "dotenv/config";
+import replaceDashesWithUnderscores from "../../shared/utils.js";
 
 class QuizTest extends Component {
   constructor(props) {
@@ -201,11 +202,17 @@ class QuizTest extends Component {
                         result.mostFrequentElements.map((element, index) => (
                           <div>
                             <div key={index}>{element}</div>
-                            <p>{quizStyleType[element]}</p>
+                            <p>
+                              {
+                                quizStyleType[
+                                  replaceDashesWithUnderscores(element)
+                                ]
+                              }
+                            </p>
                             <img
                               src={require(`../../assests/quiz-image/${element}/${element}_1.jpg`)}
-                              width="80%"
-                              height="80%"
+                              // width="80%"
+                              // height="80%"
                               alt={`Option ${index + 1}`}
                             />
                           </div>

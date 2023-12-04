@@ -9,6 +9,7 @@ import QuizImageUpload from "../../containers/QuizImageUpload/QuizImageUpload.js
 import PhotoAlbum from "react-photo-album";
 import slides from "./data.ts";
 import { Image } from "react-grid-gallery";
+import { Redirect } from "react-router-dom";
 import "./Quiz.css";
 
 const quizData = quizPage.quiz;
@@ -24,6 +25,7 @@ class Quiz extends Component {
   }
 
   handleQuizButtonClick = () => {
+    console.log("inside here");
     this.setState({ showQuizTest: true });
   };
 
@@ -36,7 +38,8 @@ class Quiz extends Component {
     const { showQuizTest, showImageUpload, imageIndex } = this.state;
 
     if (showQuizTest) {
-      return <QuizTest theme={this.props.theme} />;
+      // return <QuizTest theme={this.props.theme} />;
+      return <Redirect to="/quiz-test" />;
     }
 
     if (showImageUpload) {
@@ -75,10 +78,17 @@ class Quiz extends Component {
                   >
                     {quizData["description"]}
                   </p>
-                  <button onClick={this.handleQuizButtonClick}>
+                  <button
+                    className="quiz-button"
+                    // className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    onClick={this.handleQuizButtonClick}
+                  >
                     Do Quiz Test!
                   </button>
-                  <button onClick={this.handleUploadImageClick}>
+                  <button
+                    className="upload-button"
+                    onClick={this.handleUploadImageClick}
+                  >
                     Upload Images
                   </button>
                 </div>
