@@ -28,7 +28,7 @@ class QuizTest extends Component {
       options: shuffleArray(question.options),
     }));
 
-    this.setState((prevState) => ({
+    this.setState(() => ({
       currentQuestion: 0,
       selectedAnswer: "",
       answers: {},
@@ -147,25 +147,15 @@ class QuizTest extends Component {
     } = this.state;
     const totalQuestions = Object.keys(questionsData).length;
     const progress = ((currentQuestion + 1) / totalQuestions) * 100;
-    // console.log(
-    //   "current question, total question: ",
-    //   currentQuestion,
-    //   totalQuestions
-    // );
 
     return (
       <div>
         <Header theme={theme} />
         <div className="quiz-test-main">
           <h1>Quiz Test</h1>
-
-          {/* Container for progress bar and quiz layout */}
           <div className="progress-container">
-            {/* Display progress bar */}
             <progress value={progress} max={100} />
-
             {currentQuestion < totalQuestions && !quizCompleted ? (
-              // {true ? (
               <>
                 <p>{questionsData[currentQuestion].question}</p>
                 <div className="quiz-layout">

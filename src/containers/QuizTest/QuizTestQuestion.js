@@ -263,25 +263,14 @@ const questionsData = [
 questionsData.forEach((question) => {
   question.options = shuffleArray(question.options);
 });
-
-// Create a map to store used image indices for each type
 const usedImageIndices = {};
 
 const questionOptionLength = 10;
-let logCount = 1;
-
-let countDuplicate = 0;
-let imageCountMap = {};
 
 questionsData.forEach((question) => {
-  // Shuffle options
   question.options = shuffleArray(question.options);
-
-  // Assign random image index for each option based on type
   question.options.forEach((option) => {
     const type = option.type;
-
-    // Ensure there are available image indices for the type
     if (!usedImageIndices[type]) {
       usedImageIndices[type] = [];
     }
@@ -291,21 +280,9 @@ questionsData.forEach((question) => {
     do {
       randomIndex = Math.floor(Math.random() * questionOptionLength);
     } while (usedImageIndices[type].includes(randomIndex));
-
-    // Mark the index as used for the type
     usedImageIndices[type].push(randomIndex);
 
-    // Assign the corresponding image
     option.image = `${type}_${randomIndex + 1}.jpg`;
-    // Check for duplicate images
-    if (imageCountMap[option.image]) {
-      countDuplicate++;
-    } else {
-      imageCountMap[option.image] = 1;
-    }
-    console.log(logCount, "option image: ", option.image);
-    logCount += 1;
   });
 });
-console.log("Total duplicate count:", countDuplicate);
 export default questionsData;
