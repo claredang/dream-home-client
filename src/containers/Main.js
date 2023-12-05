@@ -4,6 +4,7 @@ import { settings } from "../portfolio.js";
 import Home from "../pages/home/HomeComponent";
 import Splash from "../pages/splash/Splash";
 import Quiz from "../pages/quiz/Quiz";
+import QuizTest from "../containers/QuizTest/QuizTest";
 
 export default class Main extends Component {
   render() {
@@ -43,11 +44,13 @@ export default class Main extends Component {
               <Route
                 path="/"
                 exact
-                render={(props) => <Home {...props} theme={this.props.theme} />}
+                // render={(props) => <Home {...props} theme={this.props.theme} />}
+                render={(props) => <Quiz {...props} theme={this.props.theme} />}
               />
               <Route
                 path="/home"
-                render={(props) => <Home {...props} theme={this.props.theme} />}
+                // render={(props) => <Home {...props} theme={this.props.theme} />}
+                render={(props) => <Quiz {...props} theme={this.props.theme} />}
               />
               <Route
                 path="/quiz"
@@ -55,6 +58,7 @@ export default class Main extends Component {
               />
               <Route
                 path="/quiz-test"
+                exact
                 render={(props) => (
                   <QuizTest {...props} theme={this.props.theme} />
                 )}

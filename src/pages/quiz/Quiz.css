@@ -1,10 +1,10 @@
 .contact-main {
-  width: 100%;
+  /* width: 100%; */
 }
 
 .reading-container {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .reading-quotes-container {
@@ -23,7 +23,9 @@
 
 .contact-heading-div {
   display: flex;
-  align-items: flex-start;
+  /* align-items: center; */
+  align-items: start;
+  justify-content: center;
 }
 
 .address-heading-div {
@@ -46,6 +48,11 @@
 
 .contact-heading-text-div {
   text-align: center;
+}
+
+.contact-heading-text {
+  /* padding-bottom: 14px;
+  padding-top: 20px; */
 }
 
 .address-heading-text-div {
@@ -137,4 +144,12 @@
     line-height: normal;
     text-align: center;
   }
+}
+
+.quiz-button {
+  @apply bg-black hover:bg-zinc-600 text-white py-2 px-4 rounded-full;
+}
+
+.upload-button {
+  @apply bg-black hover:bg-zinc-600 text-white py-2 px-4 rounded-full;
 }
