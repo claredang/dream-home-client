@@ -23,7 +23,7 @@ class QuizImageUpload extends Component {
     formData.append("file", this.state.file);
     console.log(this.state.file, this.state.file.name);
 
-    axios.post("/api/upload", formData).then((res) => {
+    axios.post("http://localhost:9874/api/upload", formData).then((res) => {
       console.log(res.data.message);
       this.setState({ val: res.data.message });
     });
