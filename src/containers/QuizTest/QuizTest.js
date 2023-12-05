@@ -259,7 +259,10 @@ class QuizTest extends Component {
                         </Button>
                       </div>
                       <div className="column">
-                        {/* <PinterestLayout images={shuffledElements} /> */}
+                        <PinterestLayout
+                          images={shuffledElements}
+                          isLoop={true}
+                        />
                       </div>
                     </div>
                   </div>
