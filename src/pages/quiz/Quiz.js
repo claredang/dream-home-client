@@ -11,6 +11,8 @@ import Button from "../../components/button/Button.js";
 import { quizPage } from "../../portfolio.js";
 import QuizTest from "../../containers/QuizTest/QuizTest.js";
 import QuizImageUpload from "../../containers/QuizImageUpload/QuizImageUpload.js";
+import PinterestLayout from "../../components/PinterestLayout.js";
+
 import slides from "./data.ts";
 import text from "../../shared/content.js";
 
@@ -56,7 +58,7 @@ class Quiz extends Component {
             <Fade bottom duration={1000} distance="40px">
               <div className="contact-heading-div">
                 <div className="contact-heading-img-div">
-                  <PhotoAlbum
+                  {/* <PhotoAlbum
                     layout="rows"
                     photos={slides}
                     targetRowHeight={150}
@@ -64,12 +66,17 @@ class Quiz extends Component {
                     onClick={({ index: current }) =>
                       this.setState({ index: current })
                     }
-                  />
+                  /> */}
+                  <PinterestLayout />
                 </div>
                 <div className="contact-heading-text-div">
                   <h1
                     className="contact-heading-text"
-                    style={{ color: theme.text, paddingBottom: "14px" }}
+                    style={{
+                      color: theme.text,
+                      paddingBottom: "14px",
+                      paddingTop: "20px",
+                    }}
                   >
                     {quizData["title"]}
                   </h1>

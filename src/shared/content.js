@@ -1,6 +1,5 @@
 const text = {
   quiz: {
-    quiz_title: "Quiz Title",
     do_quiz_test: "Do Quiz Test!",
     upload_image: "Upload Image",
     main_style: "Your Main Style",

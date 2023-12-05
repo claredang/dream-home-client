@@ -9,7 +9,7 @@
 }
 
 .quiz-result-main {
-  width: 80%;
+  /* width: 80%; */
   padding: 10px 50px;
   margin: 0px auto;
 }
@@ -40,11 +40,22 @@
   display: flex;
   /* @apply bg-black; */
 }
-
 .column {
-  flex: 1;
   padding: 10px;
 }
+
+.column:first-child {
+  flex: 4; /* 40% */
+  background-color: white;
+}
+
+.column:last-child {
+  flex: 6; /* 60% */
+}
+/* .column {
+  flex: 1;
+  paddings: 10px;
+} */
 
 .column ul {
   list-style-type: none;

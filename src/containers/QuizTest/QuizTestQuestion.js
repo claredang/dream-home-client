@@ -263,26 +263,26 @@ const questionsData = [
 questionsData.forEach((question) => {
   question.options = shuffleArray(question.options);
 });
-const usedImageIndices = {};
+// const usedImageIndices = {};
 
-const questionOptionLength = 10;
+// const questionOptionLength = 10;
 
-questionsData.forEach((question) => {
-  question.options = shuffleArray(question.options);
-  question.options.forEach((option) => {
-    const type = option.type;
-    if (!usedImageIndices[type]) {
-      usedImageIndices[type] = [];
-    }
+// questionsData.forEach((question) => {
+//   question.options = shuffleArray(question.options);
+//   question.options.forEach((option) => {
+//     const type = option.type;
+//     if (!usedImageIndices[type]) {
+//       usedImageIndices[type] = [];
+//     }
 
-    // Generate a random index not already used for the type
-    let randomIndex;
-    do {
-      randomIndex = Math.floor(Math.random() * questionOptionLength);
-    } while (usedImageIndices[type].includes(randomIndex));
-    usedImageIndices[type].push(randomIndex);
+//     // Generate a random index not already used for the type
+//     let randomIndex;
+//     do {
+//       randomIndex = Math.floor(Math.random() * questionOptionLength);
+//     } while (usedImageIndices[type].includes(randomIndex));
+//     usedImageIndices[type].push(randomIndex);
 
-    option.image = `${type}_${randomIndex + 1}.jpg`;
-  });
-});
+//     option.image = `${type}_${randomIndex + 1}.jpg`;
+//   });
+// });
 export default questionsData;

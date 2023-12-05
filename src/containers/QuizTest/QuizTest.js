@@ -12,6 +12,7 @@ import axios from "axios";
 // import "dotenv/config";
 import { replaceDashesWithUnderscores, shuffleArray } from "../../shared/utils";
 import text from "../../shared/content.js";
+import PinterestLayout from "../../components/PinterestLayout.js";
 
 class QuizTest extends Component {
   constructor(props) {
@@ -152,7 +153,21 @@ class QuizTest extends Component {
     } = this.state;
     const totalQuestions = Object.keys(questionsData).length;
     const progress = ((currentQuestion + 1) / totalQuestions) * 100;
-    console.log("progress: ", progress, currentQuestion);
+    console.log(result);
+    let shuffledElements;
+    if (
+      result.mostFrequentElements &&
+      Array.isArray(result.mostFrequentElements) &&
+      quizCompleted
+    ) {
+      // Shuffle the array to get a random order
+      shuffledElements = result.mostFrequentElements
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3);
+    }
+    // const shuffledElements = result.mostFrequentElements
+    //   .sort(() => Math.random() - 0.5)
+    //   .slice(0, 3);
 
     return (
       <div class="main">
@@ -217,17 +232,24 @@ class QuizTest extends Component {
                           {result.mostFrequentElements &&
                             result.mostFrequentElements.map(
                               (element, index) => (
-                                <div>
+                                <div
+                                  className="column"
+                                  style={{ backgroundColor: "white" }}
+                                >
                                   {/* <li key={index}>{element}</li> */}
-                                  <QuizResultCard
-                                    cardInfo={{
-                                      title: element,
-                                      description:
-                                        quizStyleType[
-                                          replaceDashesWithUnderscores(element)
-                                        ],
-                                    }}
-                                  />
+                                  <ul>
+                                    <QuizResultCard
+                                      cardInfo={{
+                                        title: element,
+                                        description:
+                                          quizStyleType[
+                                            replaceDashesWithUnderscores(
+                                              element
+                                            )
+                                          ],
+                                      }}
+                                    />
+                                  </ul>
                                 </div>
                               )
                             )}
@@ -237,15 +259,7 @@ class QuizTest extends Component {
                         </Button>
                       </div>
                       <div className="column">
-                        {result.mostFrequentElements &&
-                          result.mostFrequentElements.map((element, index) => (
-                            <div key={index}>
-                              <img
-                                src={require(`../../assests/quiz-image/${element}/${element}_1.jpg`)}
-                                alt={`Option ${index + 1}`}
-                              />
-                            </div>
-                          ))}
+                        {/* <PinterestLayout images={shuffledElements} /> */}
                       </div>
                     </div>
                   </div>
