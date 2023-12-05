@@ -1,35 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Button.css";
 
-const onMouseEnter = (event, color, bgColor) => {
-  const el = event.target;
-  el.style.color = color;
-  el.style.backgroundColor = bgColor;
-};
+const Button = ({ children, link, onClick }) => {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
 
-const onMouseOut = (event, color, bgColor) => {
-  const el = event.target;
-  el.style.color = color;
-  el.style.backgroundColor = bgColor;
-};
+  const ButtonComponent = link ? "a" : "button";
 
-export default function Button({ text, className, href, newTab, theme }) {
+  const [href, setHref] = useState(link);
+
+  useEffect(() => {
+    setHref(link);
+  }, [link]);
+
   return (
-    <div className={className}>
-      <a
-        class="main-button"
-        href={href}
-        target={newTab && "_blank"}
-        style={{
-          color: theme.body,
-          backgroundColor: theme.text,
-          border: `solid 1px ${theme.text}`,
-        }}
-        onMouseEnter={(event) => onMouseEnter(event, theme.text, theme.body)}
-        onMouseOut={(event) => onMouseOut(event, theme.body, theme.text)}
-      >
-        {text}
-      </a>
-    </div>
+    <ButtonComponent href={href} onClick={handleClick} className="button-main">
+      {children}
+    </ButtonComponent>
   );
-}
+};
+
+export default Button;

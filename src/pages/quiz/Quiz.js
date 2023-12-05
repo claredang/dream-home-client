@@ -1,16 +1,18 @@
 import React, { Component } from "react";
+import { Fade } from "react-reveal";
+import PhotoAlbum from "react-photo-album";
+import { Redirect } from "react-router-dom";
+import "./Quiz.css";
+
 import Header from "../../components/header/Header.js";
 import Footer from "../../components/footer/Footer.js";
 import TopButton from "../../components/topButton/TopButton.js";
-import { Fade } from "react-reveal";
+import Button from "../../components/button/Button.js";
 import { quizPage } from "../../portfolio.js";
 import QuizTest from "../../containers/QuizTest/QuizTest.js";
 import QuizImageUpload from "../../containers/QuizImageUpload/QuizImageUpload.js";
-import PhotoAlbum from "react-photo-album";
 import slides from "./data.ts";
-import { Image } from "react-grid-gallery";
-import { Redirect } from "react-router-dom";
-import "./Quiz.css";
+import text from "../../shared/content.js";
 
 const quizData = quizPage.quiz;
 
@@ -50,7 +52,6 @@ class Quiz extends Component {
       <div className="contact-main">
         <Header theme={theme} />
         <div className="reading-container">
-          {/* First row with image, title, and intro */}
           <div className="reading-header">
             <Fade bottom duration={1000} distance="40px">
               <div className="contact-heading-div">
@@ -68,29 +69,28 @@ class Quiz extends Component {
                 <div className="contact-heading-text-div">
                   <h1
                     className="contact-heading-text"
-                    style={{ color: theme.text }}
+                    style={{ color: theme.text, paddingBottom: "14px" }}
                   >
                     {quizData["title"]}
                   </h1>
                   <p
                     className="contact-header-detail-text subTitle"
-                    style={{ color: theme.secondaryText }}
+                    style={{
+                      color: theme.secondaryText,
+                      paddingBottom: "14px",
+                    }}
                   >
                     {quizData["description"]}
                   </p>
-                  <button
-                    className="quiz-button"
-                    // className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                  <Button
                     onClick={this.handleQuizButtonClick}
+                    className="button"
                   >
-                    Do Quiz Test!
-                  </button>
-                  <button
-                    className="upload-button"
-                    onClick={this.handleUploadImageClick}
-                  >
-                    Upload Images
-                  </button>
+                    {text.quiz.do_quiz_test}
+                  </Button>
+                  <Button onClick={this.handleUploadImageClick}>
+                    {text.quiz.upload_image}
+                  </Button>
                 </div>
               </div>
             </Fade>

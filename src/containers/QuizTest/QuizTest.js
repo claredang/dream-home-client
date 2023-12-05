@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import Header from "../../components/header/Header.js";
 import Footer from "../../components/footer/Footer.js";
 import TopButton from "../../components/topButton/TopButton.js";
+import Button from "../../components/button/Button.js";
+import QuizResultCard from "../../components/quizResultCard/quizResultCard.js";
+
 import "./QuizTest.css";
 import questionsData from "./QuizTestQuestion";
 import quizStyleType from "./QuizStyleType.js";
 import axios from "axios";
 // import "dotenv/config";
 import { replaceDashesWithUnderscores, shuffleArray } from "../../shared/utils";
+import text from "../../shared/content.js";
 
 class QuizTest extends Component {
   constructor(props) {
@@ -148,79 +152,94 @@ class QuizTest extends Component {
     } = this.state;
     const totalQuestions = Object.keys(questionsData).length;
     const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+    console.log("progress: ", progress, currentQuestion);
 
     return (
-      <div>
+      <div class="main">
         <Header theme={theme} />
-        <div className="quiz-test-main">
+        <div>
           <div className="progress-container">
             {!quizCompleted ? (
               <>
-                <h1>Quiz Test</h1>
-                <progress value={progress} max={100} />
-                {currentQuestion < totalQuestions && (
-                  <>
-                    <p>{questionsData[currentQuestion].question}</p>
-                    <div className="quiz-layout">
-                      {questionsData[currentQuestion].options.map(
-                        (option, index) => (
-                          <div
-                            key={index}
-                            onClick={() =>
-                              this.handleAnswerSelection(option.type)
-                            }
-                            className={
-                              selectedAnswer === option.text ? "selected" : ""
-                            }
-                          >
-                            <label>
-                              <div className="quiz-item">
-                                <img
-                                  src={require(`../../assests/quiz-image/${option.type}/${option.image}`)}
-                                  width={50}
-                                  height={50}
-                                  alt={`Option ${index + 1}`}
-                                />
-                                <span>{option.text}</span>
-                              </div>
-                            </label>
-                          </div>
-                        )
-                      )}
-                    </div>
-                    <button onClick={this.handleBackButton}>Back</button>
-                  </>
-                )}
+                <div className="quiz-test-main">
+                  <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                    <div
+                      class="bg-orange-100 h-2.5 rounded-full"
+                      style={{ width: `${progress}%` }}
+                    ></div>
+                  </div>
+                  {currentQuestion < totalQuestions && (
+                    <>
+                      <p>{questionsData[currentQuestion].question}</p>
+                      <div className="quiz-layout">
+                        {questionsData[currentQuestion].options.map(
+                          (option, index) => (
+                            <div
+                              key={index}
+                              onClick={() =>
+                                this.handleAnswerSelection(option.type)
+                              }
+                              className={
+                                selectedAnswer === option.text ? "selected" : ""
+                              }
+                            >
+                              <label>
+                                <div className="quiz-item">
+                                  <img
+                                    src={require(`../../assests/quiz-image/${option.type}/${option.image}`)}
+                                    width={50}
+                                    height={50}
+                                    alt={`Option ${index + 1}`}
+                                  />
+                                  <span>{option.text}</span>
+                                </div>
+                              </label>
+                            </div>
+                          )
+                        )}
+                      </div>
+                      <button onClick={this.handleBackButton}>Back</button>
+                    </>
+                  )}
+                </div>
               </>
             ) : (
-              <div>
-                <h2>Quiz Completed!</h2>
+              <div className="quiz-result-main">
                 {Object.keys(result).length > 0 && (
                   <div>
                     <h3>Quiz Results:</h3>
                     <div className="quiz-results-container">
                       <div
                         className="column"
-                        style={{ backgroundColor: "aquamarine" }}
+                        style={{ backgroundColor: "white" }}
                       >
                         <ul>
                           {result.mostFrequentElements &&
                             result.mostFrequentElements.map(
-                              (element, index) => <li key={index}>{element}</li>
+                              (element, index) => (
+                                <div>
+                                  {/* <li key={index}>{element}</li> */}
+                                  <QuizResultCard
+                                    cardInfo={{
+                                      title: element,
+                                      description:
+                                        quizStyleType[
+                                          replaceDashesWithUnderscores(element)
+                                        ],
+                                    }}
+                                  />
+                                </div>
+                              )
                             )}
                         </ul>
+                        <Button onClick={() => this.resetQuiz()}>
+                          {text.quiz.do_quiz_again}
+                        </Button>
                       </div>
                       <div className="column">
                         {result.mostFrequentElements &&
                           result.mostFrequentElements.map((element, index) => (
                             <div key={index}>
-                              <p>
-                                {
-                                  quizStyleType[
-                                    replaceDashesWithUnderscores(element)
-                                  ]
-                                }
-                              </p>
                               <img
                                 src={require(`../../assests/quiz-image/${element}/${element}_1.jpg`)}
                                 alt={`Option ${index + 1}`}
@@ -231,7 +250,6 @@ class QuizTest extends Component {
                     </div>
                   </div>
                 )}
-                <button onClick={() => this.resetQuiz()}>Do Quiz Again</button>
               </div>
             )}
           </div>
