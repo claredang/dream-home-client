@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./QuizImageUpload.css";
 import axios from "axios";
+import Header from "../../components/header/Header.js";
+import Footer from "../../components/footer/Footer.js";
+import TopButton from "../../components/topButton/TopButton.js";
 
 class QuizImageUpload extends Component {
   constructor(props) {
@@ -11,6 +14,7 @@ class QuizImageUpload extends Component {
       val: "Upload image to predict",
       filename: "No file Uploaded",
       file: null,
+      imageUrl: null,
     };
   }
 
@@ -24,8 +28,11 @@ class QuizImageUpload extends Component {
     console.log(this.state.file, this.state.file.name);
 
     axios.post("http://localhost:9874/api/upload", formData).then((res) => {
-      console.log(res.data.message);
+      console.log(res.data.message, "filename url", res.data.filename);
       this.setState({ val: res.data.message });
+      this.setState({
+        imageUrl: `http://localhost:9874/uploads/${res.data.filename}`,
+      });
     });
     alert("File uploaded successfully");
   };
@@ -36,8 +43,11 @@ class QuizImageUpload extends Component {
   };
 
   render() {
+    const theme = this.props.theme;
     return (
-      <>
+      <div class="main">
+        <Header theme={theme} />
+        {/* <> */}
         <h1 className=" mt-[5rem] mb-4 text-3xl font-extrabold dark:text-indigo-800 md:text-5xl lg:text-6xl">
           <span className="text-transparent bg-clip-text bg-gradient-to-r to-violet-600 from-blue-900">
             Machine Learning Model to
@@ -74,6 +84,15 @@ class QuizImageUpload extends Component {
           <span className="text-white">
             File Uploaded : {this.state.filename}
           </span>
+          {/* {this.state.imageUrl && (
+            <div className="mt-5">
+              <img
+                src={this.state.imageUrl}
+                alt="Uploaded"
+                // style={{ maxWidth: "100%" }}
+              />
+            </div>
+          )} */}
           <div className="flex items-center justify-center">
             <button
               className="flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5"
@@ -89,7 +108,17 @@ class QuizImageUpload extends Component {
             Detected Image is : {this.state.val}
           </span>
         </div>
-      </>
+        {this.state.imageUrl && (
+          <div className="mt-5">
+            <img
+              src={this.state.imageUrl}
+              alt="Uploaded"
+              // style={{ maxWidth: "100%" }}
+            />
+          </div>
+        )}
+        {/* </> */}
+      </div>
     );
   }
 }

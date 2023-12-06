@@ -43,7 +43,8 @@ class Quiz extends Component {
     }
 
     if (showImageUpload) {
-      return <QuizImageUpload theme={this.props.theme} />;
+      // return <QuizImageUpload theme={this.props.theme} />;
+      return <Redirect to="/quiz-upload" />;
     }
 
     return (
