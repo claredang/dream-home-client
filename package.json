@@ -2,7 +2,7 @@
   "private": true,
   "name": "dream-home",
   "version": "0.1.0",
-  "homepage": "https://claredang.github.io",
+  "homepage": "https://dream-home-mhvz.onrender.com",
   "scripts": {
     "build": "react-scripts build",
     "predeploy": "npm run build",
