@@ -4,6 +4,7 @@ import axios from "axios";
 import Header from "../../components/header/Header.js";
 import Footer from "../../components/footer/Footer.js";
 import TopButton from "../../components/topButton/TopButton.js";
+import text from "../../shared/content.js";
 
 class QuizImageUpload extends Component {
   constructor(props) {
@@ -47,12 +48,11 @@ class QuizImageUpload extends Component {
     return (
       <div class="main">
         <Header theme={theme} />
-        {/* <> */}
-        <h1 className=" mt-[5rem] mb-4 text-3xl font-extrabold dark:text-indigo-800 md:text-5xl lg:text-6xl">
+        <h1 className=" mb-4 text-3xl font-extrabold dark:text-indigo-800 md:text-5xl lg:text-6xl">
           <span className="text-transparent bg-clip-text bg-gradient-to-r to-violet-600 from-blue-900">
-            Machine Learning Model to
+            Unleash Your Imagination
           </span>
-          <br /> Detect cats & Dogs
+          <br /> Detect Your Style
         </h1>
         <p className="text-lg font-normal text-white lg:text-xl">
           Upload the image file to detect.
@@ -84,15 +84,6 @@ class QuizImageUpload extends Component {
           <span className="text-white">
             File Uploaded : {this.state.filename}
           </span>
-          {/* {this.state.imageUrl && (
-            <div className="mt-5">
-              <img
-                src={this.state.imageUrl}
-                alt="Uploaded"
-                // style={{ maxWidth: "100%" }}
-              />
-            </div>
-          )} */}
           <div className="flex items-center justify-center">
             <button
               className="flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5"
@@ -108,16 +99,6 @@ class QuizImageUpload extends Component {
             Detected Image is : {this.state.val}
           </span>
         </div>
-        {this.state.imageUrl && (
-          <div className="mt-5">
-            <img
-              src={this.state.imageUrl}
-              alt="Uploaded"
-              // style={{ maxWidth: "100%" }}
-            />
-          </div>
-        )}
-        {/* </> */}
       </div>
     );
   }
