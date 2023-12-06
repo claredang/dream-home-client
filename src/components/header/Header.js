@@ -58,7 +58,7 @@ class Header extends Component {
                   Quiz
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink
                   to="/service"
                   tag={Link}
@@ -69,7 +69,7 @@ class Header extends Component {
                 >
                   Service
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
           </header>
         </div>
