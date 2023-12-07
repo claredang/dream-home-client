@@ -9,10 +9,8 @@ import Footer from "../../components/footer/Footer.js";
 import TopButton from "../../components/topButton/TopButton.js";
 import Button from "../../components/button/Button.js";
 import { quizPage } from "../../portfolio.js";
-import QuizTest from "../../containers/QuizTest/QuizTest.js";
 import QuizImageUpload from "../../containers/QuizImageUpload/QuizImageUpload.js";
 import PinterestLayout from "../../components/PinterestLayout.js";
-
 import slides from "./data.ts";
 import text from "../../shared/content.js";
 
@@ -29,7 +27,6 @@ class Quiz extends Component {
   }
 
   handleQuizButtonClick = () => {
-    console.log("inside here");
     this.setState({ showQuizTest: true });
   };
 
@@ -42,12 +39,12 @@ class Quiz extends Component {
     const { showQuizTest, showImageUpload, imageIndex } = this.state;
 
     if (showQuizTest) {
-      // return <QuizTest theme={this.props.theme} />;
       return <Redirect to="/quiz-test" />;
     }
 
     if (showImageUpload) {
-      return <QuizImageUpload theme={this.props.theme} />;
+      // return <QuizImageUpload theme={this.props.theme} />;
+      return <Redirect to="/quiz-upload" />;
     }
 
     return (

@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import "./QuizImageUpload.css";
 import axios from "axios";
+import Header from "../../components/header/Header.js";
+import Footer from "../../components/footer/Footer.js";
+import TopButton from "../../components/topButton/TopButton.js";
+import text from "../../shared/content.js";
 
 class QuizImageUpload extends Component {
   constructor(props) {
@@ -11,6 +15,7 @@ class QuizImageUpload extends Component {
       val: "Upload image to predict",
       filename: "No file Uploaded",
       file: null,
+      imageUrl: null,
     };
   }
 
@@ -24,8 +29,11 @@ class QuizImageUpload extends Component {
     console.log(this.state.file, this.state.file.name);
 
     axios.post("/api/upload", formData).then((res) => {
-      console.log(res.data.message);
+      console.log(res.data.message, "filename url", res.data.filename);
       this.setState({ val: res.data.message });
+      // this.setState({
+      //   imageUrl: `http://localhost:9874/uploads/${res.data.filename}`,
+      // });
     });
     alert("File uploaded successfully");
   };
@@ -36,13 +44,15 @@ class QuizImageUpload extends Component {
   };
 
   render() {
+    const theme = this.props.theme;
     return (
-      <>
-        <h1 className=" mt-[5rem] mb-4 text-3xl font-extrabold dark:text-indigo-800 md:text-5xl lg:text-6xl">
+      <div class="main">
+        <Header theme={theme} />
+        <h1 className=" mb-4 text-3xl font-extrabold dark:text-indigo-800 md:text-5xl lg:text-6xl">
           <span className="text-transparent bg-clip-text bg-gradient-to-r to-violet-600 from-blue-900">
-            Machine Learning Model to
+            Unleash Your Imagination
           </span>
-          <br /> Detect cats & Dogs
+          <br /> Detect Your Style
         </h1>
         <p className="text-lg font-normal text-white lg:text-xl">
           Upload the image file to detect.
@@ -89,7 +99,7 @@ class QuizImageUpload extends Component {
             Detected Image is : {this.state.val}
           </span>
         </div>
-      </>
+      </div>
     );
   }
 }

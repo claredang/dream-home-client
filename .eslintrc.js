@@ -4,9 +4,9 @@ module.exports = {
     es6: true,
   },
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
+    // "eslint:recommended",
+    // "plugin:react/recommended",
+    // "plugin:@typescript-eslint/eslint-recommended",
   ],
   globals: {
     Atomics: "readonly",
@@ -20,6 +20,6 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint"],
-  rules: {},
+  plugins: ["react", "@typescript-eslint", "jsx-a11y"],
+  rules: { "jsx-a11y/accessible-emoji": "warn" },
 };

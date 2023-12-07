@@ -5,6 +5,7 @@ import Home from "../pages/home/HomeComponent";
 import Splash from "../pages/splash/Splash";
 import Quiz from "../pages/quiz/Quiz";
 import QuizTest from "../containers/QuizTest/QuizTest";
+import QuizImageUpload from "./QuizImageUpload/QuizImageUpload.js";
 
 export default class Main extends Component {
   render() {
@@ -61,6 +62,13 @@ export default class Main extends Component {
                 exact
                 render={(props) => (
                   <QuizTest {...props} theme={this.props.theme} />
+                )}
+              />
+              <Route
+                path="/quiz-upload"
+                exact
+                render={(props) => (
+                  <QuizImageUpload {...props} theme={this.props.theme} />
                 )}
               />
             </Switch>
