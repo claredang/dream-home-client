@@ -4,9 +4,9 @@ module.exports = {
     es6: true,
   },
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
+    // "eslint:recommended",
+    // "plugin:react/recommended",
+    // "plugin:@typescript-eslint/eslint-recommended",
   ],
   globals: {
     Atomics: "readonly",
