@@ -24,7 +24,7 @@
 .contact-heading-div {
   display: flex;
   /* align-items: center; */
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
 }
 
