@@ -76,6 +76,10 @@ function PinterestLayout({ isLoop = false, images }) {
             size="small"
             src={require(`../../src/assests/house-style-random/quiz-cover_6.jpg`)}
           />
+          <Card
+            size="small"
+            src={require(`../../src/assests/house-style-random/dream-home.jpg`)}
+          />
         </React.Fragment>
       )}
     </div>

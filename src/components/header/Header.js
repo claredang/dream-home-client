@@ -58,18 +58,18 @@ class Header extends Component {
                   Quiz
                 </NavLink>
               </li>
-              {/* <li>
+              <li>
                 <NavLink
-                  to="/service"
+                  to="/explore"
                   tag={Link}
                   activeStyle={{ fontWeight: "bold" }}
                   style={{ color: theme.text }}
                   // onMouseEnter={(event) => onMouseEnter(event, theme.highlight)}
                   onMouseOut={(event) => onMouseOut(event)}
                 >
-                  Service
+                  Explore
                 </NavLink>
-              </li> */}
+              </li>
             </ul>
           </header>
         </div>
