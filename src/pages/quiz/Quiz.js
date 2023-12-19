@@ -100,6 +100,11 @@ class Quiz extends Component {
             </Fade>
           </div>
         </div>
+        <img
+          src={require(image)}
+          alt="Explore Card"
+          className="w-100 h-100 object-fit-cover border rounded"
+        />
         <Footer theme={this.props.theme} onToggle={this.props.onToggle} />
         <TopButton theme={this.props.theme} />
       </div>

@@ -1,0 +1,8 @@
+p {
+  font-family: "Google Sans Regular";
+}
+.card-img-top {
+  max-height: 160px;
+  min-height: 160px;
+  object-fit: cover;
+}
