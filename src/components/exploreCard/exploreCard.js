@@ -16,12 +16,13 @@ const ExploreCard = ({
   return (
     <div className="col-md-3">
       <div className="card mb-3 border-0">
-        <MainCarousel
+        {/* <MainCarousel
           images={[
             "house-style-random/house-style-random_6.jpg",
             "house-style-random/house-style-random_1.jpg",
           ]}
-        />
+        /> */}
+        <MainCarousel images={imageUrl} />
         <div className="card-body p-0">
           <div className="d-flex justify-content-between align-items-baseline">
             <p className="badge badge-pill badge-dark">{interiorStyle}</p>
