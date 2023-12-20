@@ -35,9 +35,7 @@ class Explore extends Component {
     console.log("data :", this.state.data);
 
     return (
-      <div style={{ backgroundColor: "white" }}>
-        <p>Explore page</p>
-        <button onClick={this.fetchData}>click here</button>
+      <div>
         <div class="container-fluid container py-3 mt-2">
           <h2 class="h3">
             What guests are saying about homes in the United States

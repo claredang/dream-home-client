@@ -186,6 +186,7 @@ class QuizTest extends Component {
                   {currentQuestion < totalQuestions && (
                     <>
                       <p>{questionsData[currentQuestion].question}</p>
+
                       <div className="quiz-layout">
                         {questionsData[currentQuestion].options.map(
                           (option, index) => (

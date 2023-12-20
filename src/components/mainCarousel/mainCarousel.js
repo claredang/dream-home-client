@@ -17,9 +17,8 @@ const MainCarousel = ({ images }) => {
             style={{ position: "relative" }}
           >
             <img
-              src={require(`../../assests/${image}`)}
-              // src={require("../../assests/house-style-random/house-style-random_5.jpg")}
-              // // src={image}
+              // src={require(`../../assests/${image}`)}
+              src={require(`../../assests/house-style-random/house-style-random_9.jpg`)}
               alt={`Image ${index + 1}`}
               className="embed-responsive-item img-fluid"
               style={{ borderRadius: "4px" }}

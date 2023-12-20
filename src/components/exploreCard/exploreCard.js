@@ -18,17 +18,18 @@ const ExploreCard = ({
       <div className="card mb-3 border-0">
         <MainCarousel
           images={[
-            "../../assests/house-style-random/house-style-random_5.jpg",
-            "../../assests/house-style-random/house-style-random_2.jpg",
-            // Add more image URLs as needed
+            "house-style-random/house-style-random_6.jpg",
+            "house-style-random/house-style-random_1.jpg",
           ]}
         />
-        <div className="card-body">
+        <div className="card-body p-0">
           <div className="d-flex justify-content-between align-items-baseline">
             <p className="badge badge-pill badge-dark">{interiorStyle}</p>
             <p className="card-text">{`${rating}`}</p>
           </div>
-          <p className="card-title">{title}</p>
+          <p className="card-title" style={{ lineHeight: "1.2" }}>
+            {title}
+          </p>
           <p className="card-text" style={{ lineHeight: "0.4" }}>
             {price}
           </p>

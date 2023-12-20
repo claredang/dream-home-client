@@ -28,13 +28,24 @@ class QuizImageUpload extends Component {
     formData.append("file", this.state.file);
     console.log(this.state.file, this.state.file.name);
 
-    axios.post("/api/upload", formData).then((res) => {
-      console.log(res.data.message, "filename url", res.data.filename);
-      this.setState({ val: res.data.message });
-      // this.setState({
-      //   imageUrl: `http://localhost:9874/uploads/${res.data.filename}`,
-      // });
-    });
+    // axios.post("/api/upload", formData).then((res) => {
+    //   console.log(res.data.message, "filename url", res.data.filename);
+    //   this.setState({ val: res.data.message });
+    //   // this.setState({
+    //   //   imageUrl: `http://localhost:9874/uploads/${res.data.filename}`,
+    //   // });
+    // });
+    // alert("File uploaded successfully");
+
+    axios
+      .post("http://localhost:8080/upload-file-to-cloud-storage", formData)
+      .then((res) => {
+        console.log(res.data.message, "filename url", res.data.filename);
+        this.setState({ val: res.data.message });
+        // this.setState({
+        //   imageUrl: `http://localhost:9874/uploads/${res.data.filename}`,
+        // });
+      });
     alert("File uploaded successfully");
   };
 
