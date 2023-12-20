@@ -8,6 +8,8 @@ const MainCarousel = ({ images }) => {
     setActiveIndex(selectedIndex);
   };
 
+  console.log("image");
+
   return (
     <Carousel activeIndex={activeIndex} onSelect={handleSelect} interval={null}>
       {!images || images.length === 0 ? (
@@ -20,8 +22,8 @@ const MainCarousel = ({ images }) => {
               style={{ position: "relative" }}
             >
               <img
-                // src={image}
-                src={require(`../../assests/house-style-random/house-style-random_9.jpg`)}
+                src={image}
+                // src={require(`../../assests/house-style-random/house-style-random_9.jpg`)}
                 alt={`Image ${index + 1}`}
                 className="embed-responsive-item img-fluid"
                 style={{ borderRadius: "4px" }}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const FormInput = () => {
   // State to track form data
@@ -12,6 +13,7 @@ const FormInput = () => {
     files: [],
   });
 
+  const history = useHistory();
   // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,9 +25,10 @@ const FormInput = () => {
 
   // Handle file input changes
   const handleFileChange = (e) => {
+    const files = e.target.files || [];
     setFormData((prevData) => ({
       ...prevData,
-      files: e.target.files || [], // Ensure it's not null
+      files: files, // Ensure it's not null
     }));
   };
 
@@ -61,6 +64,7 @@ const FormInput = () => {
 
       // Handle the response as needed
       console.log(response.data);
+      history.push("/explore");
     } catch (error) {
       // Handle errors
       console.error("Error submitting form:", error);
