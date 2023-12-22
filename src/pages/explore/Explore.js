@@ -10,6 +10,8 @@ import ExploreCard from "../../components/exploreCard/exploreCard";
 import axios from "axios";
 import FormInput from "../../components/formInput/formInput";
 import Header from "../../components/header/Header";
+import TopButton from "../../components/topButton/TopButton";
+import Footer from "../../components/footer/Footer";
 
 class Explore extends Component {
   constructor(props) {
@@ -59,6 +61,8 @@ class Explore extends Component {
             ))}
           </div>
         </div>
+        {/* <Footer theme={this.props.theme} onToggle={this.props.onToggle} />
+        <TopButton theme={this.props.theme} /> */}
       </div>
     );
   }

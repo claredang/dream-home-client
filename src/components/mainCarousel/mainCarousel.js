@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 
 const MainCarousel = ({ images }) => {
@@ -8,7 +8,14 @@ const MainCarousel = ({ images }) => {
     setActiveIndex(selectedIndex);
   };
 
-  console.log("image");
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     const newIndex = (activeIndex + 1) % images.length;
+  //     setActiveIndex(newIndex);
+  //   }, 4000); // Change images every 5 seconds
+
+  //   return () => clearInterval(intervalId); // Clear interval on component unmount
+  // }, [activeIndex, images]);
 
   return (
     <Carousel activeIndex={activeIndex} onSelect={handleSelect} interval={null}>
