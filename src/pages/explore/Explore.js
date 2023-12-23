@@ -31,7 +31,8 @@ class Explore extends Component {
 
   fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:8080/explore");
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/explore`);
+
       const result = await response.json();
       this.setState({ data: result });
     } catch (error) {

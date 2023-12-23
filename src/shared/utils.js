@@ -35,12 +35,6 @@ const styleToColorMap = {
 };
 
 export function styleToColor(interiorStyle) {
-  console.log("interior style: ", interiorStyle);
-  if (interiorStyle.includes("_")) {
-    console.log("inside here");
-    // If interiorStyle already contains '_', no need to convert
-    return styleToColorMap[interiorStyle] || "badge-dark";
-  }
   const badgeColorClass =
     styleToColorMap[convertToHyphen(interiorStyle)] || "badge-dark";
   return badgeColorClass;
