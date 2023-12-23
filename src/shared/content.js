@@ -6,6 +6,7 @@ const text = {
     sub_style: "Your SubStyles",
     explore_more: "Explore More",
     do_quiz_again: "Do Quiz Again",
+    explore_your_style: "Explore More Style",
   },
   quiz_upload: {
     upload_title: "Unleash Your Imagination",

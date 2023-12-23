@@ -44,7 +44,7 @@ class Explore extends Component {
   };
 
   getCategoryButtonClass(category) {
-    const baseClass = "badge badge-pill p-2 m-2";
+    const baseClass = "badge badge-pill px-4 py-2 mx-2 my-2";
     return `${baseClass} ${
       this.state.selectedCategory === convertToHyphen(category)
         ? styleToColor(category)
@@ -70,8 +70,8 @@ class Explore extends Component {
     return (
       <div>
         <Header theme={theme} />
-        <div className="container-fluid container py-3 mt-2">
-          <p className="explore-title">
+        <div className="container-fluid container py-3 px-3">
+          <p className="explore-title mb-4">
             {text.explore.explore_title}{" "}
             <span>
               {" "}
