@@ -1,8 +1,47 @@
-/* body {
+.explore-title {
   font-family: "Europa Light";
-} */
+  text-align: center;
+  font-size: 20px;
+}
 
-.card-main {
-  font-family: "Europa Light";
-  backgroundcolor: "red";
+.badge-coastal {
+  background-color: #a3d9ff;
+  border: 1px solid #66a3cc;
+  color: #333;
+}
+
+.badge-farm-house {
+  background-color: #f0e8d9;
+  border: 1px solid #d9c39a;
+  color: #333;
+}
+
+.badge-glam {
+  background-color: #fad6de;
+  border: 1px solid #e6838d;
+  color: #333;
+}
+
+.badge-indochine {
+  background-color: #98fbb6;
+  border: 1px solid #4a9970;
+  color: #333;
+}
+
+.badge-industrial {
+  background-color: #dcdcdc;
+  border: 1px solid #7a7a7a;
+  color: #333;
+}
+
+.badge-midcentury-modern {
+  background-color: #ffffcc;
+  border: 1px solid #cccc99;
+  color: #333;
+}
+
+.badge-scandinavian {
+  background-color: #f8f8ff;
+  border: 1px solid #d9d9e0;
+  color: #333;
 }

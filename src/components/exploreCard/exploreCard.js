@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Carousel } from "react-bootstrap";
 import MainCarousel from "../../components/mainCarousel/mainCarousel";
+import "./exploreCard.css";
+import { convertToHyphen, styleToColor } from "../../shared/utils";
+import Emoji from "../../shared/emoji";
 
 const ExploreCard = ({
   title,
@@ -10,31 +12,43 @@ const ExploreCard = ({
   rating,
   imageUrl,
 }) => {
-  // You can use state hooks here if needed
-  console.log("image url:", imageUrl);
+  const badgeColorClass = styleToColor(interiorStyle);
 
   return (
     <div className="col-md-3">
       <div className="card mb-3 border-0">
-        {/* <MainCarousel
-          images={[
-            "house-style-random/house-style-random_6.jpg",
-            "house-style-random/house-style-random_1.jpg",
-          ]}
-        /> */}
         <MainCarousel images={imageUrl} />
         <div className="card-body p-0">
+          {" "}
           <div className="d-flex justify-content-between align-items-baseline">
-            <p className="badge badge-pill badge-dark">{interiorStyle}</p>
-            <p className="card-text">{`${rating}`}</p>
+            <p className={`badge badge-pill ${badgeColorClass} my-2`}>
+              {interiorStyle}
+            </p>
+            <p className="card-rating mb-0">
+              {" "}
+              <span>
+                {" "}
+                <Emoji symbol="" label="sparkles" />
+              </span>
+              {`${rating}`}
+            </p>
           </div>
-          <p className="card-title" style={{ lineHeight: "1.2" }}>
+          <p
+            className="card-title"
+            style={{ lineHeight: "1.2", marginBottom: "0.5rem" }}
+          >
             {title}
           </p>
-          <p className="card-text" style={{ lineHeight: "0.4" }}>
+          <p
+            className="card-text"
+            style={{ lineHeight: "1", marginBottom: "0.2rem" }}
+          >
             {price}
           </p>
-          <p className="card-text" style={{ lineHeight: "0.4" }}>
+          <p
+            className="card-text"
+            style={{ lineHeight: "1", marginBottom: "0" }}
+          >
             {location}
           </p>
         </div>

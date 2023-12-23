@@ -12,12 +12,16 @@ import FormInput from "../../components/formInput/formInput";
 import Header from "../../components/header/Header";
 import TopButton from "../../components/topButton/TopButton";
 import Footer from "../../components/footer/Footer";
+import text from "../../shared/content";
+import Emoji from "../../shared/emoji";
+import { convertToHyphen, styleToColor } from "../../shared/utils";
 
 class Explore extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
+      selectedCategory: "all", // Default to show all cards
     };
   }
 
@@ -35,20 +39,65 @@ class Explore extends Component {
     }
   };
 
+  handleCategoryChange = (category) => {
+    this.setState({ selectedCategory: convertToHyphen(category) });
+  };
+
+  getCategoryButtonClass(category) {
+    const baseClass = "badge badge-pill p-2 m-2";
+    return `${baseClass} ${
+      this.state.selectedCategory === convertToHyphen(category)
+        ? styleToColor(category)
+        : "badge-light"
+    }`;
+  }
+
   render() {
     const theme = this.props.theme;
-    console.log("data :", this.state.data);
+    const filteredData =
+      this.state.selectedCategory === "all"
+        ? this.state.data
+        : this.state.data.filter(
+            (item) =>
+              convertToHyphen(item["interior_style"]) ===
+              this.state.selectedCategory
+          );
+
+    const styleCategory = [
+      ...new Set(this.state.data.map((item) => item["interior_style"])),
+    ];
 
     return (
       <div>
         <Header theme={theme} />
         <div className="container-fluid container py-3 mt-2">
-          <h2 className="h3">
-            What guests are saying about homes in the United States
-          </h2>
-          <FormInput />
+          <p className="explore-title">
+            {text.explore.explore_title}{" "}
+            <span>
+              {" "}
+              <Emoji symbol="✨" label="sparkles" />
+            </span>
+          </p>
+          {/* <FormInput /> */}
+          <div className="category-buttons">
+            <button
+              className={this.getCategoryButtonClass("all")}
+              onClick={() => this.handleCategoryChange("all")}
+            >
+              All
+            </button>
+            {styleCategory.map((category, index) => (
+              <button
+                key={index}
+                className={this.getCategoryButtonClass(category)}
+                onClick={() => this.handleCategoryChange(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
           <div className="row mt-4">
-            {this.state.data.map((item, index) => (
+            {filteredData.map((item, index) => (
               <ExploreCard
                 key={index}
                 title={item["title"]}
@@ -61,8 +110,8 @@ class Explore extends Component {
             ))}
           </div>
         </div>
-        {/* <Footer theme={this.props.theme} onToggle={this.props.onToggle} />
-        <TopButton theme={this.props.theme} /> */}
+        <Footer theme={this.props.theme} onToggle={this.props.onToggle} />
+        <TopButton theme={this.props.theme} />
       </div>
     );
   }

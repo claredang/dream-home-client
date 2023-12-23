@@ -12,6 +12,10 @@ const text = {
     upload_subtitle:
       "Embark on an extraordinary journey with our advanced service. Upload image of your dream home and we help you analyze your style",
   },
+  explore: {
+    explore_title:
+      "Let your imagination run wild as we guide you towards the most awe-inspiring homestay",
+  },
 };
 
 export default text;
