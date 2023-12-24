@@ -56,6 +56,19 @@
   src: local("Europa Light"),
     url("./assests/fonts/Europa-Light.ttf") format("woff");
 }
+@font-face {
+  font-family: "SF Pro Regular";
+  font-weight: 300;
+  src: local("SF Pro Regular"),
+    url("./assests/fonts/SF-Pro-Text-Regular.ttf") format("woff");
+}
+@font-face {
+  font-family: "Circular Medium";
+  font-weight: 300;
+  src: local("Circular Medium"),
+    url("./assests/fonts/Circula-Medium.ttf") format("woff");
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -64,12 +77,14 @@ html,
 body {
   scroll-behavior: smooth;
 }
-body {
+/* font: 18px / 32px Europa Light, "Europa Light", sans-serif; */
+/* body {
   margin: 0;
-  font: 18px / 32px Europa Light, "Europa Light", sans-serif;
+  font: 18px / 32px Circular Medium, "Circular Medium", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */
+
 /* Media Query */
 @media (max-width: 1380px) {
   html,
@@ -78,3 +93,16 @@ body {
     line-height: normal;
   }
 }
+
+/* body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+} */

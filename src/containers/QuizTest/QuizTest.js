@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import Header from "../../components/header/Header.js";
 import Footer from "../../components/footer/Footer.js";
 import TopButton from "../../components/topButton/TopButton.js";
@@ -23,6 +24,7 @@ class QuizTest extends Component {
       answers: {},
       result: {},
       quizCompleted: false,
+      navigateExplore: false,
     };
   }
 
@@ -143,6 +145,10 @@ class QuizTest extends Component {
     //   });
   };
 
+  handleNavigateToExplore = () => {
+    this.setState({ navigateExplore: true });
+  };
+
   render() {
     const theme = this.props.theme;
     const {
@@ -150,6 +156,7 @@ class QuizTest extends Component {
       selectedAnswer,
       result,
       quizCompleted,
+      navigateExplore,
     } = this.state;
     const totalQuestions = Object.keys(questionsData).length;
     const progress = ((currentQuestion + 1) / totalQuestions) * 100;
@@ -169,6 +176,10 @@ class QuizTest extends Component {
     //   .sort(() => Math.random() - 0.5)
     //   .slice(0, 3);
 
+    if (navigateExplore) {
+      return <Redirect to="/explore" />;
+    }
+
     return (
       <div class="main">
         <Header theme={theme} />
@@ -186,6 +197,7 @@ class QuizTest extends Component {
                   {currentQuestion < totalQuestions && (
                     <>
                       <p>{questionsData[currentQuestion].question}</p>
+
                       <div className="quiz-layout">
                         {questionsData[currentQuestion].options.map(
                           (option, index) => (
@@ -256,6 +268,9 @@ class QuizTest extends Component {
                         </ul>
                         <Button onClick={() => this.resetQuiz()}>
                           {text.quiz.do_quiz_again}
+                        </Button>
+                        <Button onClick={() => this.handleNavigateToExplore()}>
+                          {text.quiz.explore_your_style}
                         </Button>
                       </div>
                       <div className="column">

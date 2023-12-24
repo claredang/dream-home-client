@@ -5,17 +5,20 @@ import { Provider as StyletronProvider } from "styletron-react";
 import { Client as Styletron } from "styletron-engine-atomic";
 
 import "./index.css";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "./assests/font-awesome/css/all.css";
-
+import Chatbot from "./containers/chatbot/chatbot";
 const engine = new Styletron();
 
 ReactDOM.render(
   <StyletronProvider value={engine}>
     <BaseProvider theme={LightTheme}>
-      <App />
+      <div id="root">
+        <App />
+        {/* <Chatbot /> */}
+      </div>
     </BaseProvider>
   </StyletronProvider>,
   document.getElementById("root")

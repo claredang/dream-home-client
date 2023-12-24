@@ -16,3 +16,26 @@ export function shuffleArray(array) {
   }
   return array;
 }
+
+// eg: farm house -> farm-house
+export function convertToHyphen(text) {
+  const lowercaseText = text.toLowerCase();
+  const slugText = lowercaseText.replace(/ /g, "_");
+  return slugText;
+}
+
+const styleToColorMap = {
+  coastal: "badge-coastal",
+  farm_house: "badge-farm-house",
+  glam: "badge-glam",
+  indochine: "badge-indochine",
+  industrial: "badge-industrial",
+  midcentury_modern: "badge-midcentury-modern",
+  scandinavian: "badge-scandinavian",
+};
+
+export function styleToColor(interiorStyle) {
+  const badgeColorClass =
+    styleToColorMap[convertToHyphen(interiorStyle)] || "badge-dark";
+  return badgeColorClass;
+}
