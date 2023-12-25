@@ -30,7 +30,8 @@ class QuizImageUpload extends Component {
     console.log(process.env.REACT_APP_FLASK_API_URL);
 
     axios
-      .post(`${process.env.REACT_APP_FLASK_API_URL}/api/upload`, formData)
+      // .post(`${process.env.REACT_APP_FLASK_API_URL}/api/upload`, formData)
+      .post(`https://dream-home-mhvz.onrender.com/api/upload`, formData)
       .then((res) => {
         console.log(res.data.message, "filename url", res.data.filename);
         this.setState({ val: res.data.message });
