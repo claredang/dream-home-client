@@ -117,8 +117,9 @@
 
 // export default QuizImageUpload;
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { removeLocation } from "../../shared/gpt";
 
 const QuizImageUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState(null);
@@ -151,10 +152,63 @@ const QuizImageUpload = () => {
     }
   };
 
+  const [data, setData] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/explore`
+      );
+      setData(response.data);
+      console.log(removeLocation(response.data));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+
+    // try {
+    //   const cityName = "Miami, Florida, US";
+    //   const encodedCityName = encodeURIComponent(cityName);
+    //   console.log(encodedCityName);
+
+    //   const response = await axios.get(
+    //     `${process.env.REACT_APP_API_URL}/api/query/${encodedCityName}`
+    //   );
+    //   // setData(response.data);
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.error("Error fetching data:", error);
+    // }
+
+    useEffect(() => {
+      fetchData();
+    }, []);
+  };
+
+  const testAPI = async () => {
+    try {
+      const cityName = "Miami, Florida, US";
+      const encodedCityName = encodeURIComponent(cityName);
+
+      // const response = await axios.post(
+      //   `${process.env.REACT_APP_API_URL}/api/query`,
+      //   { location: encodedCityName }
+      // );
+
+      const response = await axios.post(`http://localhost:8080/api/query`, {
+        location: cityName,
+      });
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <div>
       <input type="file" multiple onChange={handleFileChange} />
       <button onClick={handleUpload}>Upload</button>
+      <button onClick={testAPI}>click me</button>
     </div>
   );
 };

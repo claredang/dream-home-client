@@ -1,20 +1,14 @@
 import React, { Component } from "react";
-import { Fade } from "react-reveal";
-import PhotoAlbum from "react-photo-album";
-import { Redirect } from "react-router-dom";
 import "./Explore.css";
-import Button from "../../components/button/Button";
-import { Card, CardGroup, Alert, CardDeck, Form, Col } from "react-bootstrap";
-import MainCarousel from "../../components/mainCarousel/mainCarousel";
 import ExploreCard from "../../components/exploreCard/exploreCard";
 import axios from "axios";
-import FormInput from "../../components/formInput/formInput";
 import Header from "../../components/header/Header";
 import TopButton from "../../components/topButton/TopButton";
 import Footer from "../../components/footer/Footer";
 import text from "../../shared/content";
 import Emoji from "../../shared/emoji";
 import { convertToHyphen, styleToColor } from "../../shared/utils";
+import { removeLocation } from "../../shared/gpt";
 
 class Explore extends Component {
   constructor(props) {
