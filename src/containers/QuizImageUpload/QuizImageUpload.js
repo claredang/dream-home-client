@@ -27,10 +27,10 @@ class QuizImageUpload extends Component {
     const formData = new FormData();
     formData.append("file", this.state.file);
     console.log(this.state.file, this.state.file.name);
-    console.log(process.env.FLASK_API_URL);
+    console.log(process.env.REACT_APP_FLASK_API_URL);
 
-    axios
-      .post(`${process.env.FLASK_API_URL}/api/upload`, formData)
+    await axios
+      .post(`${process.env.REACT_APP_FLASK_API_URL}/api/upload`, formData)
       .then((res) => {
         console.log(res.data.message, "filename url", res.data.filename);
         this.setState({ val: res.data.message });
