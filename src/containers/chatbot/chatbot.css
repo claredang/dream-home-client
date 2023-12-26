@@ -1,10 +1,10 @@
 /* Chatbot.css */
-
+/* 
 .chatbot-container {
   width: 400px;
   position: fixed;
   bottom: 16px;
-  right: 16px; /* Adjust this value to change the distance from the left */
+  right: 16px; 
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 16px;
@@ -66,6 +66,60 @@
 }
 .chatbot-input-form button:hover {
   background-color: #0056b3;
-}
+} */
 
 /* ##########  */
+.App {
+  position: relative;
+}
+
+.chat-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* .chat-open {
+  z-index: 999;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+.chat-open {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  z-index: 999;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Style the chat window container */
+.ChatContainer {
+  /* Add your styles for ChatContainer here */
+}
+
+/* Style the message input */
+.MessageInput {
+  /* Add your styles for MessageInput here */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}

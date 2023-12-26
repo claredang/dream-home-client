@@ -97,8 +97,40 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 
 // const API_KEY = process.env.OPENAI_API_KEY;
+const ChatButton = ({ onClick }) => {
+  return (
+    <button className="chat-button" onClick={onClick}>
+      Open Chat
+    </button>
+  );
+};
 
+const CloseButton = ({ onClick }) => {
+  return (
+    <button
+      style={{
+        position: "absolute",
+        top: "10px",
+        right: "10px",
+        zIndex: 999, // Adjust the zIndex as needed
+      }}
+      onClick={onClick}
+    >
+      Close
+    </button>
+  );
+};
 const Chatbot = () => {
+  const [isChatOpen, setChatOpen] = useState(false);
+
+  const handleToggleChat = () => {
+    setChatOpen(!isChatOpen);
+  };
+
+  const handleCloseChat = () => {
+    setChatOpen(false);
+  };
+
   const [messages, setMessages] = useState([
     {
       message: "Hello, I'm ChatGPT! Ask me anything!",
@@ -326,30 +358,34 @@ const Chatbot = () => {
   }
 
   return (
-    <div className="App">
-      <div style={{ position: "relative", height: "500px", width: "500px" }}>
-        <MainContainer>
-          <ChatContainer>
-            <MessageList
-              scrollBehavior="smooth"
-              typingIndicator={
-                isTyping ? (
-                  <TypingIndicator content="ChatGPT is typing" />
-                ) : null
-              }
-            >
-              {messages.map((message, i) => {
-                // console.log(message);
-                return <Message key={i} model={message} />;
-              })}
-            </MessageList>
-            <MessageInput
-              placeholder="Send a Message"
-              onSend={handleSendRequest}
-            />
-          </ChatContainer>
-        </MainContainer>
-      </div>
+    <div className={`App ${isChatOpen ? "chat-open" : ""}`}>
+      {isChatOpen && (
+        <div style={{ position: "relative", height: "500px", width: "500px" }}>
+          <CloseButton onClick={handleCloseChat} />
+          <MainContainer>
+            <ChatContainer>
+              <MessageList
+                scrollBehavior="smooth"
+                typingIndicator={
+                  isTyping ? (
+                    <TypingIndicator content="ChatGPT is typing" />
+                  ) : null
+                }
+              >
+                {messages.map((message, i) => {
+                  // console.log(message);
+                  return <Message key={i} model={message} />;
+                })}
+              </MessageList>
+              <MessageInput
+                placeholder="Send a Message"
+                onSend={handleSendRequest}
+              />
+            </ChatContainer>
+          </MainContainer>
+        </div>
+      )}
+      <ChatButton onClick={handleToggleChat} />
     </div>
   );
 };

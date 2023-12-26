@@ -17,7 +17,7 @@ ReactDOM.render(
     <BaseProvider theme={LightTheme}>
       <div id="root">
         <App />
-        {/* <Chatbot /> */}
+        <Chatbot />
       </div>
     </BaseProvider>
   </StyletronProvider>,
