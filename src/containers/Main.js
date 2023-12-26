@@ -7,6 +7,7 @@ import Quiz from "../pages/quiz/Quiz";
 import QuizTest from "../containers/QuizTest/QuizTest";
 import QuizImageUpload from "./QuizImageUpload/QuizImageUpload.js";
 import Explore from "../pages/explore/Explore.js";
+import Chatbot from "./chatbot/chatbot.js";
 
 export default class Main extends Component {
   render() {
@@ -79,6 +80,7 @@ export default class Main extends Component {
                   <Explore {...props} theme={this.props.theme} />
                 )}
               />
+              <Route path="/chatbot" exact render={(props) => <Chatbot />} />
             </Switch>
           </HashRouter>
         </div>
