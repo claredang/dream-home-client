@@ -96,7 +96,7 @@ import {
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
 
-const API_KEY = process.env.OPENAI_API_KEY;
+// const API_KEY = process.env.OPENAI_API_KEY;
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([
@@ -107,6 +107,8 @@ const Chatbot = () => {
     },
   ]);
   const [isTyping, setIsTyping] = useState(false);
+
+  const API_KEY = "sk-";
 
   const handleSendRequest = async (message) => {
     const newMessage = {
@@ -121,9 +123,49 @@ const Chatbot = () => {
     try {
       const response = await processMessageToChatGPT([...messages, newMessage]);
       const content = response.choices[0]?.message?.content;
-      if (content) {
+      let final_content = await processUserMessage(content);
+
+      console.log("message: ", message);
+      if (final_content) {
+        // const apiMessages = message.map((messageObject) => {
+        //   const role =
+        //     messageObject.sender === "ChatGPT" ? "assistant" : "user";
+        //   return { role, content: messageObject.message };
+        // });
+        const apiRequestBody = {
+          model: "gpt-3.5-turbo",
+          messages: [
+            { role: "system", content: final_content },
+            { role: "user", content: message },
+          ],
+          max_tokens: 200, // Set the desired value for max_tokens
+        };
+
+        let final_response = await fetch(
+          "https://api.openai.com/v1/chat/completions",
+          {
+            method: "POST",
+            headers: {
+              Authorization: "Bearer " + API_KEY,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(apiRequestBody),
+          }
+        );
+
+        if (!final_response.ok) {
+          console.error("OpenAI API error:", await final_response.text());
+          // Handle the error appropriately
+          return;
+        }
+
+        const jsonResponse = await final_response.json();
+        final_response = jsonResponse.choices[0]?.message?.content;
+
+        console.log("json", final_response);
+
         const chatGPTResponse = {
-          message: content,
+          message: final_response,
           sender: "ChatGPT",
         };
         setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
@@ -135,6 +177,105 @@ const Chatbot = () => {
     }
   };
 
+  async function processUserMessage(chatMessages) {
+    const stringToJson = JSON.parse(chatMessages);
+    console.log(
+      "test api: ",
+      JSON.parse(chatMessages),
+      stringToJson["primary"]
+    );
+    let unrelevantMessage =
+      "Our website only provide answer related to design. Do you want to want some suggestion about style";
+    if (chatMessages == "None") {
+      return unrelevantMessage;
+    }
+
+    let secondaryCategory = "";
+
+    switch (stringToJson["primary"]) {
+      case "General housing/ Homestay inquiry":
+        switch (stringToJson["secondary"]) {
+          case "Homestay Inquiry":
+            secondaryCategory = `
+            You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            Answer or ask customers further questions related to homestay location, style, price, ratings
+            `;
+            break;
+          case "Homestay Recommendation":
+            secondaryCategory = `
+            You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            Answer or recommend customers further questions related to homestay location, style, price, ratings
+            `;
+            break;
+          default:
+            secondaryCategory = `
+            You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            Answer or ask customers further questions related to homestay location, style, price, ratings
+            `;
+        }
+        break;
+      case "Design/Interior style":
+        switch (stringToJson["secondary"]) {
+          case "Interior style definition":
+            secondaryCategory = `
+              You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+              Answer the question of user that related to interior design style.
+              `;
+            break;
+          case "Style quiz":
+            secondaryCategory = `
+              You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+              Suggest user do some style quiz or explain how style quiz work.
+              `;
+            break;
+          case "Detect user interior style based on user image's input":
+            secondaryCategory = `
+                    You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+                    Suggest user give some image to detect the interior style with machine learning method.
+                    `;
+            break;
+          case "Suggestion or recommendation about design style":
+            secondaryCategory = `
+                    You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+                    Answer or recommend customers further questions related to interior design style.
+                    `;
+            break;
+          default:
+            secondaryCategory = `
+            You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            Answer or recommend customers further questions related to interior design style.
+              `;
+        }
+        break;
+      case "Greeting":
+        switch (stringToJson["secondary"]) {
+          case "Greeting from user":
+            secondaryCategory = `
+                You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+                Provide some services the website provide to user.
+                `;
+            break;
+          case "User ask question related to what service website provides":
+            secondaryCategory = `
+                You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+                Provide some services the website provide to user. `;
+            break;
+          default:
+            secondaryCategory = `
+                You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+                Provide some services the website provide to user. 
+                `;
+        }
+    }
+
+    console.log(
+      "secondary category ",
+      secondaryCategory,
+      stringToJson["secondary"]
+    );
+    return secondaryCategory + ". Limit the answer in less than 200 words";
+  }
+
   async function processMessageToChatGPT(chatMessages) {
     const apiMessages = chatMessages.map((messageObject) => {
       const role = messageObject.sender === "ChatGPT" ? "assistant" : "user";
@@ -143,21 +284,29 @@ const Chatbot = () => {
 
     const systemMessage = `
         You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. Classify each query into a primary category and a secondary category. Provide your output in json format with the keys: primary and secondary 
-        Primary categories: General housing or homestay inquiry, Design or interior style, Greeting
         
-        General housing or homestay inquiry:
+        1. Primary category: General housing/ Homestay inquiry
+        Secondary category: 
         - Homestay Inquiry
         - Homestay Recommendation 
         - Price
         
-        Design or interior style:
+        2. Primary category: Design/Interior style
+        Secondary category: 
         - Interior style definition
         - Style quiz
+        - Detect user interior style based on user image's input
         - Suggestion or recommendation about design style
         
-        Greeting:
+        3. Primary category: Greeting
+        Secondary category: 
         - Greeting from user 
-        - User ask question related to what service website provides`;
+        - User ask question related to what service website provides
+
+        System instruction: Can only response either: 
+        - "None" - if unrelevant to primary AND secondary categories above
+        - OR in the json format with the keys: primary and secondary if user's message is relevant (both primary and secondary must match)
+        `;
 
     const apiRequestBody = {
       model: "gpt-3.5-turbo",
@@ -178,7 +327,7 @@ const Chatbot = () => {
 
   return (
     <div className="App">
-      <div style={{ position: "relative", height: "800px", width: "700px" }}>
+      <div style={{ position: "relative", height: "500px", width: "500px" }}>
         <MainContainer>
           <ChatContainer>
             <MessageList
@@ -190,7 +339,7 @@ const Chatbot = () => {
               }
             >
               {messages.map((message, i) => {
-                console.log(message);
+                // console.log(message);
                 return <Message key={i} model={message} />;
               })}
             </MessageList>
