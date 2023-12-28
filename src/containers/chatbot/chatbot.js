@@ -133,14 +133,35 @@ const Chatbot = () => {
 
   const [messages, setMessages] = useState([
     {
-      message: "Hello, I'm ChatGPT! Ask me anything!",
+      message: "Hello, I'm your chatbot assistant! Ask me anything!",
       sentTime: "just now",
       sender: "ChatGPT",
     },
   ]);
   const [isTyping, setIsTyping] = useState(false);
 
-  const API_KEY = "sk-";
+  const systemMessage = `
+    You will be provided with a list of categories and services which a website provide. The website service are providing homestay listing based on interior style as well as provide quiz test to detect user interior style taste. Classify each query into a primary_category category and a secondary_category category.
+
+    System instruction: 
+    Return {"relevant": "No"} for irrelevant questions.
+    
+    For relevant questions, return in the format {"primary_category": "text", "secondary_category": "text"}.
+    
+    Primary and Secondary Category Pairs:
+    
+    (Primary) General housing or homestay inquiry
+    (Secondary) Homestay Inquiry
+    (Secondary) Homestay Recommendation
+    
+    (Primary) Design or interior style
+    (Secondary) Style quiz service
+    (Secondary) Definition, suggestion, or recommendation about interior design style
+    
+    (Primary) Greeting
+    (Secondary) User's greeting
+    (Secondary) Website service
+    `;
 
   const handleSendRequest = async (message) => {
     const newMessage = {
@@ -155,22 +176,32 @@ const Chatbot = () => {
     try {
       const response = await processMessageToChatGPT([...messages, newMessage]);
       const content = response.choices[0]?.message?.content;
-      let final_content = await processUserMessage(content);
+      let final_content = processUserMessage(content);
 
       console.log("message: ", message);
-      if (final_content) {
-        // const apiMessages = message.map((messageObject) => {
-        //   const role =
-        //     messageObject.sender === "ChatGPT" ? "assistant" : "user";
-        //   return { role, content: messageObject.message };
-        // });
+      console.log("message response: ", content, final_content);
+
+      if (final_content === "Irrelevant") {
+        const chatGPTResponse = {
+          message:
+            "Our website only provide answer related to design. Do you want to want some suggestion about style",
+          sender: "ChatGPT",
+        };
+        setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
+      } else {
+        console.log("inside here", final_content);
         const apiRequestBody = {
           model: "gpt-3.5-turbo",
           messages: [
-            { role: "system", content: final_content },
+            // { role: "system", content: systemMessage },
             { role: "user", content: message },
+            { role: "system", content: final_content },
           ],
-          max_tokens: 200, // Set the desired value for max_tokens
+          temperature: 0.42,
+          max_tokens: 100,
+          top_p: 1,
+          frequency_penalty: 0,
+          presence_penalty: 0,
         };
 
         let final_response = await fetch(
@@ -209,140 +240,123 @@ const Chatbot = () => {
     }
   };
 
-  async function processUserMessage(chatMessages) {
+  function processUserMessage(chatMessages) {
+    console.log("chat message: ", chatMessages);
     const stringToJson = JSON.parse(chatMessages);
     console.log(
       "test api: ",
       JSON.parse(chatMessages),
-      stringToJson["primary"]
+      stringToJson["primary_category"]
     );
-    let unrelevantMessage =
-      "Our website only provide answer related to design. Do you want to want some suggestion about style";
-    if (chatMessages == "None") {
-      return unrelevantMessage;
-    }
 
     let secondaryCategory = "";
 
-    switch (stringToJson["primary"]) {
+    let unrelevantMessage =
+      "Our website only provide answer related to design. Do you want to want some suggestion about style";
+    if (chatMessages == `{"relevant": "No"}`) {
+      console.log("inside here relevant");
+      secondaryCategory = "Irrelevant";
+      return secondaryCategory;
+    }
+
+    switch (stringToJson["primary_category"]) {
       case "General housing/ Homestay inquiry":
-        switch (stringToJson["secondary"]) {
+        switch (stringToJson["secondary_category"]) {
           case "Homestay Inquiry":
             secondaryCategory = `
-            You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            You will be customer service assistant for a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
             Answer or ask customers further questions related to homestay location, style, price, ratings
             `;
             break;
           case "Homestay Recommendation":
             secondaryCategory = `
-            You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
-            Answer or recommend customers further questions related to homestay location, style, price, ratings
+            You will be customer service assistant for a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            Answer or ask customers further questions related to homestay location, style, price, ratings
             `;
             break;
           default:
             secondaryCategory = `
-            You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            You will be customer service assistant for a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
             Answer or ask customers further questions related to homestay location, style, price, ratings
             `;
         }
         break;
       case "Design/Interior style":
-        switch (stringToJson["secondary"]) {
+        switch (stringToJson["secondary_category"]) {
           case "Interior style definition":
             secondaryCategory = `
-              You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
-              Answer the question of user that related to interior design style.
+              You will be customer service assistant for a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+              Answer the question of user that related to interior design style knowledge.
               `;
             break;
-          case "Style quiz":
+          case "Style quiz service":
             secondaryCategory = `
-              You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+              You will be customer service assistant for aa website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
               Suggest user do some style quiz or explain how style quiz work.
               `;
             break;
-          case "Detect user interior style based on user image's input":
+          case "Definition, suggestion, or recommendation about interior design style":
             secondaryCategory = `
-                    You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            You will be customer service assistant for a a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
                     Suggest user give some image to detect the interior style with machine learning method.
                     `;
             break;
           case "Suggestion or recommendation about design style":
             secondaryCategory = `
-                    You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            You will be customer service assistant for a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
                     Answer or recommend customers further questions related to interior design style.
                     `;
             break;
           default:
             secondaryCategory = `
-            You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            You will be customer service assistant for a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
             Answer or recommend customers further questions related to interior design style.
               `;
         }
         break;
       case "Greeting":
-        switch (stringToJson["secondary"]) {
-          case "Greeting from user":
+        switch (stringToJson["secondary_category"]) {
+          case "User's greeting":
             secondaryCategory = `
-                You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            You will be customer service assistant for a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
                 Provide some services the website provide to user.
                 `;
             break;
-          case "User ask question related to what service website provides":
+          case "Website service":
             secondaryCategory = `
-                You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            You will be customer service assistant for a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
                 Provide some services the website provide to user. `;
             break;
           default:
             secondaryCategory = `
-                You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
+            You will be customer service assistant for a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. 
                 Provide some services the website provide to user. 
                 `;
         }
     }
 
     console.log(
-      "secondary category ",
+      "secondary_category category ",
       secondaryCategory,
-      stringToJson["secondary"]
+      stringToJson["secondary_category"]
     );
-    return secondaryCategory + ". Limit the answer in less than 200 words";
+    return secondaryCategory;
   }
 
   async function processMessageToChatGPT(chatMessages) {
     const apiMessages = chatMessages.map((messageObject) => {
-      const role = messageObject.sender === "ChatGPT" ? "assistant" : "user";
+      const role = messageObject.sender === "ChatGPT" ? "system" : "user";
       return { role, content: messageObject.message };
     });
 
-    const systemMessage = `
-        You will be provided with customer service queries with a website that provide homestay listing based on interior style as well as provide quiz test to detect user interior style taste. Classify each query into a primary category and a secondary category. Provide your output in json format with the keys: primary and secondary 
-        
-        1. Primary category: General housing/ Homestay inquiry
-        Secondary category: 
-        - Homestay Inquiry
-        - Homestay Recommendation 
-        - Price
-        
-        2. Primary category: Design/Interior style
-        Secondary category: 
-        - Interior style definition
-        - Style quiz
-        - Detect user interior style based on user image's input
-        - Suggestion or recommendation about design style
-        
-        3. Primary category: Greeting
-        Secondary category: 
-        - Greeting from user 
-        - User ask question related to what service website provides
-
-        System instruction: Can only response either: 
-        - "None" - if unrelevant to primary AND secondary categories above
-        - OR in the json format with the keys: primary and secondary if user's message is relevant (both primary and secondary must match)
-        `;
-
     const apiRequestBody = {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-1106",
       messages: [{ role: "system", content: systemMessage }, ...apiMessages],
+      temperature: 0.3,
+      max_tokens: 100,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
     };
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
