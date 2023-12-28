@@ -11,7 +11,7 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 import Icon from "../../components/icon/icon";
 
-const API_KEY = process.env.OPENAI_API_KEY;
+const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 
 const ChatButton = ({ onClick }) => {
   return (
@@ -151,18 +151,10 @@ const Chatbot = () => {
 
   function processUserMessage(chatMessages) {
     const stringToJson = JSON.parse(chatMessages);
-    console.log(
-      "test api: ",
-      JSON.parse(chatMessages),
-      stringToJson["primary_category"]
-    );
 
     let secondaryCategory = "";
 
-    let unrelevantMessage =
-      "Our website only provide answer related to design. Do you want to want some suggestion about style?";
     if (chatMessages == `{"relevant": "No"}`) {
-      console.log("inside here relevant");
       secondaryCategory = "Irrelevant";
       return secondaryCategory;
     }
