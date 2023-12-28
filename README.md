@@ -46,7 +46,7 @@ npm install
 Create a new file named `.env` in the root of your project and add the following content:
 
 ```env
-REACT_APP_OPENAI_API_KEY
+REACT_APP_OPENAI_API_KEY=
 ```
 
 Replace the placeholder values with your actual credentials
