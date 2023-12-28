@@ -29,15 +29,11 @@ class QuizImageUpload extends Component {
     console.log(this.state.file, this.state.file.name);
     console.log(process.env.REACT_APP_FLASK_API_URL);
 
-    axios
-      // .post(`${process.env.REACT_APP_FLASK_API_URL}/api/upload`, formData)
-      .post(`https://dream-home-mhvz.onrender.com/api/upload`, formData)
+    await axios
+      .post(`${process.env.REACT_APP_FLASK_API_URL}/api/upload`, formData)
       .then((res) => {
         console.log(res.data.message, "filename url", res.data.filename);
         this.setState({ val: res.data.message });
-        // this.setState({
-        //   imageUrl: `http://localhost:9874/uploads/${res.data.filename}`,
-        // });
       });
     alert("File uploaded successfully");
   };
