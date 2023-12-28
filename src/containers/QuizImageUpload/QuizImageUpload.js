@@ -34,9 +34,6 @@ class QuizImageUpload extends Component {
       .then((res) => {
         console.log(res.data.message, "filename url", res.data.filename);
         this.setState({ val: res.data.message });
-        // this.setState({
-        //   imageUrl: `http://localhost:9874/uploads/${res.data.filename}`,
-        // });
       });
     alert("File uploaded successfully");
   };
