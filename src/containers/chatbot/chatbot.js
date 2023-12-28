@@ -1,90 +1,4 @@
-// import React, { useState } from "react";
-// import axios from "axios";
-// import "./chatbot.css";
-
-// const Chatbot = () => {
-//   const [input, setInput] = useState("");
-//   const [messages, setMessages] = useState([]);
-//   const [chatbotOpen, setChatbotOpen] = useState(true); // New state variable
-
-//   const toggleChatbot = () => {
-//     setChatbotOpen(!chatbotOpen);
-//   };
-
-//   const chatWithGPT3 = async (userInput) => {
-//     const apiEndpoint =
-//       "https://api.openai.com/v1/engines/davinci-codex/completions";
-//     const headers = {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer`,
-//     };
-
-//     const data = {
-//       prompt: userInput,
-//       max_tokens: 150,
-//     };
-//     try {
-//       const response = await axios.post(apiEndpoint, data, { headers });
-//       return response.data.choices[0].text.trim();
-//     } catch (error) {
-//       console.error("Error communicating with the API:", error.message);
-//       return "";
-//     }
-//   };
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     if (!input.trim()) return;
-//     const userMessage = { text: input, user: true };
-//     setMessages((prevMessages) => [...prevMessages, userMessage]);
-//     const aiMessage = { text: "...", user: false };
-//     setMessages((prevMessages) => [...prevMessages, aiMessage]);
-//     const response = await chatWithGPT3(input);
-//     const newAiMessage = { text: response, user: false };
-//     setMessages((prevMessages) => [...prevMessages.slice(0, -1), newAiMessage]);
-//     setInput("");
-//   };
-
-//   return (
-//     <div>
-//       <button className="chatbot-icon" onClick={toggleChatbot}>
-//         Chatbot
-//       </button>
-//       {chatbotOpen && (
-//         <div className="chatbot-container">
-//           <button className="close-button" onClick={toggleChatbot}>
-//             Close
-//           </button>
-//           <div className="chatbot-messages">
-//             {messages.map((message, index) => (
-//               <div
-//                 key={index}
-//                 className={`message ${
-//                   message.user ? "user-message" : "ai-message"
-//                 }`}
-//               >
-//                 {message.text}
-//               </div>
-//             ))}
-//           </div>
-//           <form className="chatbot-input-form" onSubmit={handleSubmit}>
-//             <input
-//               type="text"
-//               value={input}
-//               onChange={(e) => setInput(e.target.value)}
-//               placeholder="Type your message..."
-//             />
-//             <button type="submit">Send</button>
-//           </form>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-// export default Chatbot;
-
-// ################
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import "./chatbot.css";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
@@ -95,12 +9,14 @@ import {
   MessageInput,
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
+import Icon from "../../components/icon/icon";
 
-// const API_KEY = process.env.OPENAI_API_KEY;
+const API_KEY = process.env.OPENAI_API_KEY;
+
 const ChatButton = ({ onClick }) => {
   return (
     <button className="chat-button" onClick={onClick}>
-      Open Chat
+      <Icon name="chatbot" size={48} />
     </button>
   );
 };
@@ -112,11 +28,11 @@ const CloseButton = ({ onClick }) => {
         position: "absolute",
         top: "10px",
         right: "10px",
-        zIndex: 999, // Adjust the zIndex as needed
+        zIndex: 999,
       }}
       onClick={onClick}
     >
-      Close
+      <Icon name="close" size={16} color="black" />
     </button>
   );
 };
@@ -178,9 +94,6 @@ const Chatbot = () => {
       const content = response.choices[0]?.message?.content;
       let final_content = processUserMessage(content);
 
-      console.log("message: ", message);
-      console.log("message response: ", content, final_content);
-
       if (final_content === "Irrelevant") {
         const chatGPTResponse = {
           message:
@@ -189,11 +102,9 @@ const Chatbot = () => {
         };
         setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
       } else {
-        console.log("inside here", final_content);
         const apiRequestBody = {
           model: "gpt-3.5-turbo",
           messages: [
-            // { role: "system", content: systemMessage },
             { role: "user", content: message },
             { role: "system", content: final_content },
           ],
@@ -218,14 +129,12 @@ const Chatbot = () => {
 
         if (!final_response.ok) {
           console.error("OpenAI API error:", await final_response.text());
-          // Handle the error appropriately
+
           return;
         }
 
         const jsonResponse = await final_response.json();
         final_response = jsonResponse.choices[0]?.message?.content;
-
-        console.log("json", final_response);
 
         const chatGPTResponse = {
           message: final_response,
@@ -241,7 +150,6 @@ const Chatbot = () => {
   };
 
   function processUserMessage(chatMessages) {
-    console.log("chat message: ", chatMessages);
     const stringToJson = JSON.parse(chatMessages);
     console.log(
       "test api: ",
@@ -252,7 +160,7 @@ const Chatbot = () => {
     let secondaryCategory = "";
 
     let unrelevantMessage =
-      "Our website only provide answer related to design. Do you want to want some suggestion about style";
+      "Our website only provide answer related to design. Do you want to want some suggestion about style?";
     if (chatMessages == `{"relevant": "No"}`) {
       console.log("inside here relevant");
       secondaryCategory = "Irrelevant";
@@ -335,11 +243,6 @@ const Chatbot = () => {
         }
     }
 
-    console.log(
-      "secondary_category category ",
-      secondaryCategory,
-      stringToJson["secondary_category"]
-    );
     return secondaryCategory;
   }
 
@@ -374,7 +277,7 @@ const Chatbot = () => {
   return (
     <div className={`App ${isChatOpen ? "chat-open" : ""}`}>
       {isChatOpen && (
-        <div style={{ position: "relative", height: "500px", width: "500px" }}>
+        <div style={{ position: "relative", height: "500px", width: "300px" }}>
           <CloseButton onClick={handleCloseChat} />
           <MainContainer>
             <ChatContainer>
@@ -382,18 +285,24 @@ const Chatbot = () => {
                 scrollBehavior="smooth"
                 typingIndicator={
                   isTyping ? (
-                    <TypingIndicator content="ChatGPT is typing" />
+                    <TypingIndicator content="Chatbot is typing" />
                   ) : null
                 }
               >
                 {messages.map((message, i) => {
-                  // console.log(message);
-                  return <Message key={i} model={message} />;
+                  const isFirstMessage = i === 0;
+                  const messageStyle = isFirstMessage
+                    ? { marginTop: "10px", textAlign: "left" }
+                    : { textAlign: "left" };
+                  return (
+                    <Message key={i} model={message} style={messageStyle} />
+                  );
                 })}
               </MessageList>
               <MessageInput
                 placeholder="Send a Message"
                 onSend={handleSendRequest}
+                style={{ textAlign: "left" }}
               />
             </ChatContainer>
           </MainContainer>
