@@ -85,6 +85,7 @@ const Chatbot = () => {
       direction: "outgoing",
       sender: "user",
     };
+    console.log("message", message);
 
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setIsTyping(true);
@@ -244,6 +245,7 @@ const Chatbot = () => {
       return { role, content: messageObject.message };
     });
 
+    console.log(chatMessages, apiMessages);
     const apiRequestBody = {
       model: "gpt-3.5-turbo-1106",
       messages: [{ role: "system", content: systemMessage }, ...apiMessages],
@@ -263,13 +265,21 @@ const Chatbot = () => {
       body: JSON.stringify(apiRequestBody),
     });
 
+    console.log("RESPONSE: ", response);
+
     return response.json();
   }
 
   return (
     <div className={`App ${isChatOpen ? "chat-open" : ""}`}>
       {isChatOpen && (
-        <div style={{ position: "relative", height: "500px", width: "300px" }}>
+        <div
+          style={{
+            position: "relative",
+            height: "500px",
+            width: "300px",
+          }}
+        >
           <CloseButton onClick={handleCloseChat} />
           <MainContainer>
             <ChatContainer>
