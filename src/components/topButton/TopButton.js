@@ -9,20 +9,24 @@ export default function TopButton(props) {
   }
 
   function GoDownEvent() {
-    // for area of interest
     document.body.scrollTop = 800;
     document.documentElement.scrollTop = 800;
   }
 
   function scrollFunction() {
+    // To hide the topButton without error
+    // const topButton = document.getElementById("topButton");
+
+    // if (topButton) {
     if (
       document.body.scrollTop > 30 ||
       document.documentElement.scrollTop > 30
     ) {
-      document.getElementById("topButton").style.visibility = "visible";
+      topButton.style.visibility = "visible";
     } else {
-      document.getElementById("topButton").style.visibility = "hidden";
+      topButton.style.visibility = "hidden";
     }
+    // }
   }
 
   window.onscroll = function () {
