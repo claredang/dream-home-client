@@ -4,7 +4,7 @@ Dream Home is an online platform designed to assist users in identifying their i
 
 ## ✨ Demo link
 
-Access my site at [Dream Home](https://dream-home-com.onrender.com/#/).
+Access my site at [Dream Home](https://dream-home-server-umber.vercel.app).
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
